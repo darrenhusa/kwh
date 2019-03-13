@@ -1,0 +1,14 @@
+<h1>Create Customer</h1>
+
+<!-- https://github.com/LaravelCollective/docs/blob/5.6/html.md#csrf-protection -->
+{!! Form::open(array('action' => 'CustomersController@store', 'method' => 'post')) !!}
+
+{!! Form::label('first_name', 'First Name') !!}
+{!! Form::text('first_name') !!}
+
+{!! Form::label('last_name', 'Last Name') !!}
+{!! Form::text('last_name') !!}
+
+{!! Form::submit('Create') !!}
+
+{!! Form::close() !!}
