@@ -18,4 +18,12 @@
 
    </form>
 
+   <form action="/customers/{{ $customer->id }}" method="post">
+     {{ method_field('DELETE')}}
+     {{ csrf_field() }}
+
+     <input type="submit" value="Delete Customer">
+   </form>
+
+
 @endsection

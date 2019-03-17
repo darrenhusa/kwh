@@ -1,14 +1,21 @@
-<h1>Create Customer</h1>
+@extends('layout')
 
-<!-- https://github.com/LaravelCollective/docs/blob/5.6/html.md#csrf-protection -->
-{!! Form::open(array('action' => 'CustomersController@store', 'method' => 'post')) !!}
+@section('content')
+   <h1>Create Customer</h1>
 
-{!! Form::label('first_name', 'First Name') !!}
-{!! Form::text('first_name') !!}
+   <form action="/customers" method="post">
 
-{!! Form::label('last_name', 'Last Name') !!}
-{!! Form::text('last_name') !!}
+     {{ csrf_field() }}
 
-{!! Form::submit('Create') !!}
+      <label for="first_name">First Name</label>
+      <input type="text" name="first_name" id="first_name">
 
-{!! Form::close() !!}
+      <label for="last_name">Last Name</label>
+      <input type="text" name="last_name" id="last_name">
+
+      <input type="submit" value="Create Customer">
+
+   </form>
+
+
+@endsection

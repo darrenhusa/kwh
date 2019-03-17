@@ -27,6 +27,22 @@ class CustomersController extends Controller
         return view('customers.create');
     }
 
+    public function show()
+    {
+
+        // return view('customers.create');
+    }
+
+    public function destroy($id)
+    {
+      // dd('hello');
+      Customer::findOrFail($id)->delete();
+
+      return redirect('/customers');
+
+    }
+
+
     public function edit($id)
     {
         // Load the current customer witht he given id
