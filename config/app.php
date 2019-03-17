@@ -167,6 +167,7 @@ return [
          */
 
          Collective\Html\HtmlServiceProvider::class,
+         Barryvdh\Debugbar\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -231,6 +232,9 @@ return [
         // added on 3/12/19
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+
+        // added 3/15/2019
+        'Debugbar' => Barryvdh\Debugbar\Facade::class,
 
     ],
 
