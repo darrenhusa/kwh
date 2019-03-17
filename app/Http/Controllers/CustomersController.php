@@ -27,6 +27,18 @@ class CustomersController extends Controller
         return view('customers.create');
     }
 
+    public function edit($id)
+    {
+        // Load the current customer witht he given id
+
+        // dd('inside edit action');
+
+        $customer = Customer::findOrFail($id);
+        // return $id;
+
+        return view('customers.edit', compact('customer'));
+    }
+
     // public function store(Request $request)
     public function store()
     {
@@ -35,6 +47,20 @@ class CustomersController extends Controller
         $customer = new Customer();
 
         // dd($request);
+
+        $customer->first_name = request('first_name');
+        $customer->last_name = request('last_name');
+
+        $customer->save();
+
+        return redirect('/customers');
+    }
+
+    public function update($id)
+    {
+      // dd('hello from update action');
+
+        $customer = Customer::findOrFail($id);
 
         $customer->first_name = request('first_name');
         $customer->last_name = request('last_name');
