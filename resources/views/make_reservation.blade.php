@@ -3,7 +3,7 @@
 @section('content')
    <h1>Make Reservation</h1>
 
-   <form action="" method="post">
+   <form action="/customers/{{ $customer->id }}/registrations" method="post">
 
      {{ csrf_field() }}
 
