@@ -11,9 +11,14 @@ class RoomsController extends Controller
   {
       $rooms = Room::all();
 
-      // return the deluxe rooms (use a RoomsController instead???)
-      // $deluxe_rooms = Reservation::all()->where();
+      // return the deluxe rooms
+      $deluxe_rooms = Room::where('Category', 'Deluxe')->get();
+
+      dd($deluxe_rooms);
+      // dd($rooms);
 
       return view('rooms.index', compact('rooms'));
   }
+
+  // TODO Create a scope for Deluxe rooms (as a test)
 }

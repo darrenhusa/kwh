@@ -7,9 +7,31 @@ use Illuminate\Http\Request;
 
 class CustomersController extends Controller
 {
+  // public function search($search_string)
+  // {
+  //   // Simple search
+  //   dd($search_string);
+  //
+  //   $customers = Customer::search($search_string)->get();
+  //
+  //   return view('customers.index', compact('customers'));
+  // }
+
     public function index()
     {
-        $customers = Customer::all();
+      // $search_string = 'Hen';
+        $search_string = request('search_string');
+
+        if(!empty($search_string))
+        {
+            // dd($search_string);
+
+            $customers = Customer::search($search_string)->get();
+        }
+        else
+        {
+          $customers = Customer::all();
+        }
         // $data = [
         //   'customers' => $customers,
         // ];

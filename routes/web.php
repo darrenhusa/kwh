@@ -11,12 +11,18 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 // Route::get('/customers', 'CustomerController@index');
 // Route::get('/customers/new', 'CustomerController@create');
+
+// KWH Routes
+
+Route::get('/', 'CustomersController@index');
+
+// Route::get('/customers', 'CustomersController@search');
 
 Route::resource('customers', 'CustomersController');
 
