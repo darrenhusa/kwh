@@ -49,10 +49,11 @@ class CustomersController extends Controller
         return view('customers.create');
     }
 
-    public function show()
+    public function show($id)
     {
+        $customer = Customer::findOrFail($id);
 
-        // return view('customers.create');
+        return view('customers.show', compact('customer'));
     }
 
     public function destroy($id)

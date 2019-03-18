@@ -19,4 +19,20 @@ class ReservationsController extends Controller
       return view('reservations.index', compact('reservations'));
   }
 
+  // public function get_available_rooms()
+  // {
+  //     // $reservations = Reservation::all()->where()->get();
+  //     $reservations = Reservation::all()->where()->get();
+  //
+  //     // select the room no field only???
+  //
+  //     return $reservations
+  //     // return the available rooms?
+  //
+  //     // $reservations = Reservation::all()->where();
+  //
+  //     // return view('reservations.index', compact('reservations'));
+  // }
+
+
 }

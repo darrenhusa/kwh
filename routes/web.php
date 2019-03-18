@@ -22,7 +22,7 @@
 
 Route::get('/', 'CustomersController@index');
 
-// Route::get('/customers', 'CustomersController@search');
+Route::get('/customers/{customer}/reservations/create', 'CustomerReservationsController@create');
 
 Route::resource('customers', 'CustomersController');
 
