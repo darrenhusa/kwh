@@ -9,6 +9,16 @@
   <li>Last Name: {{ $customer->last_name }}</li>
 </ul>
 
+  <form action="/customers/{{ $customer->id }}/reservations/create" class="" method="get">
+    <input type="submit" name="" value="Make Reservation">
+  </form>
+  <form class="" action="" method="get">
+    <input type="submit" name="" value="Check In">
+  </form>
+  <form class="" action="" method="get">
+    <input type="submit" name="" value="Check Out">
+  </form>
+
   <a href="/customers">Back to Customers Index</a>
 
 @endsection

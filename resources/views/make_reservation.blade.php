@@ -37,6 +37,7 @@
       <!--  need to programmatically populate this control! -->
 
       <input type="submit" value="Save">
+      <input type="reset" value="Cancel">
 
    </form>
 

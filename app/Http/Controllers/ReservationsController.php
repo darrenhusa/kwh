@@ -21,8 +21,7 @@ class ReservationsController extends Controller
 
   // public function get_available_rooms()
   // {
-  //     // $reservations = Reservation::all()->where()->get();
-  //     $reservations = Reservation::all()->where()->get();
+  //     $reservations = Reservation::all()->where('start_date', '>=', date )->get();
   //
   //     // select the room no field only???
   //
