@@ -65,7 +65,6 @@ class CustomersController extends Controller
 
     }
 
-
     public function edit($id)
     {
         // Load the current customer witht he given id
@@ -82,6 +81,12 @@ class CustomersController extends Controller
     public function store()
     {
         // save a new customer to the db and redirect
+
+        // add server-side validation
+        request()->validate([
+          'first_name' => 'required|min:2',
+          'last_name' => 'required|min:4',
+        ]);
 
         $customer = new Customer();
 
