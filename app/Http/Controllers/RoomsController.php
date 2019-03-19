@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Room;
+use App\Reservation;
 
 class RoomsController extends Controller
 {
@@ -20,5 +21,15 @@ class RoomsController extends Controller
       return view('rooms.index', compact('rooms'));
   }
 
-  // TODO Create a scope for Deluxe rooms (as a test)
+  public function get_available_rooms()
+  {
+    // load all reservations
+    $reservations = Reservation::all();
+
+    // dd('available_rooms');
+    // dd($reservations);
+
+    return $reservations;
+
+  }
 }

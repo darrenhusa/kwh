@@ -30,6 +30,8 @@ Route::get('/reservations','ReservationsController@index');
 
 Route::get('/rooms','RoomsController@index');
 
+Route::get('/rooms/get_available','RoomsController@get_available_rooms');
+
 // this is the jquery-ajax example!!
 // tested successfully on 3/16/2019
 Route::get('/ajax_test',function() {

@@ -17,6 +17,10 @@ class Room extends Model
         $end_date = DateTime::createFromFormat($format, '2019-03-17');
         $category = 'Economy';
 
+        // load all Reservations
+        $reservations = App\Reservation::all();
+        dd($reservations);
+
         $available = $query->where('start_date', '<=', $start_date);
 
         return $available;
