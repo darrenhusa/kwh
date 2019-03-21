@@ -20,7 +20,7 @@ class ReservationsTableSeeder extends Seeder
       DB::table('reservations')->insert([
         'room_no' => 100,
         'start_date' => DateTime::createFromFormat($format, '2019-03-17'),
-        'end_date' => DateTime::createFromFormat($format, '2019-03-17'),
+        'end_date' => DateTime::createFromFormat($format, '2019-03-18'),
         'amount' => 0.0,
         'customer_no' => 1,
         'created_at' => DateTime::createFromFormat($format, '2019-03-17'),
@@ -34,7 +34,7 @@ class ReservationsTableSeeder extends Seeder
         'amount' => 0.0,
         'customer_no' => 2,
         'created_at' => DateTime::createFromFormat($format, '2019-03-17'),
-        'updated_at' => DateTime::createFromFormat($format, '2019-03-17'),        
+        'updated_at' => DateTime::createFromFormat($format, '2019-03-17'),
       ]);
     }
 }

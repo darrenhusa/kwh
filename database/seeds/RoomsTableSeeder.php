@@ -37,13 +37,13 @@ class RoomsTableSeeder extends Seeder
           'needs_cleaning' => false,
         ]);
         DB::table('rooms')->insert([
-          'room_no' => 103,
+          'room_no' => 104,
           'category' => 'Economy',
           'unavailable' => false,
           'needs_cleaning' => false,
         ]);
         DB::table('rooms')->insert([
-          'room_no' => 104,
+          'room_no' => 105,
           'category' => 'Economy',
           'unavailable' => false,
           'needs_cleaning' => true,
