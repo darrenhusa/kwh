@@ -52,6 +52,8 @@ class RoomsController extends Controller
         ->select('room_no', 'start_date', 'end_date')
         ->get();
 
+        dd($qry_reserved_rooms1);
+
         // $qry_reserved_rooms1 = DB::table('reservations')
         // ->select('room_no', 'start_date', 'end_date')
         // ->get();
@@ -79,12 +81,20 @@ class RoomsController extends Controller
       // $qry_reserved_rooms2 = DB::table('rooms')
       //   ->select('rooms.room_no', 'category', 'unavailable')
 
+      //test example!!!!
+      // tested on 3/22/2019
+      //works with reservations as a table in the join
+      // $qry_reserved_rooms2 = DB::table('rooms')
+      //   ->leftJoin('reservations', 'rooms.room_no', '=', 'reservations.room_no')
+      //   ->select('reservations.room_no', 'start_date', 'end_date',
+      //            'rooms.room_no', 'category', 'unavailable')
+      //   ->get();
+
       $qry_reserved_rooms2 = DB::table('rooms')
         ->leftJoin($qry_reserved_rooms1, 'rooms.room_no', '=', 'reservations.room_no')
         ->select('reservations.room_no', 'start_date', 'end_date',
                  'rooms.room_no', 'category', 'unavailable')
         ->get();
-        // ->pluck('room_no');
 
         dd($qry_reserved_rooms2);
     // dd($category);
