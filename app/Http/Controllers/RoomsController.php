@@ -45,121 +45,46 @@ class RoomsController extends Controller
 
     // dd($input_data);
 
-    // $qry_reserved_rooms1 = DB::table('reservations')
-    //     ->where([
-    //       ['start_date', '<=', $input['start_date']],
-    //       ['end_date', '>=', $input['end_date']],
-    //     ])
-    //     ->OrWhere([
-    //       ['start_date', '>=', $input['start_date']],
-    //       ['start_date', '<=', $input['end_date']],
-    //       ['end_date', '>=', $input['end_date']],
-    //     ])
-    //     ->OrWhere([
-    //       ['start_date', '<=', $input['start_date']],
-    //       ['end_date', '>=', $input['start_date']],
-    //       ['end_date', '<=', $input['end_date']],
-    //     ])
-    //     ->select('room_no', 'start_date', 'end_date');
-    //     // ->get();
+    // $qry_reserved_rooms1 = Reservation::ReservedDuringRequestedReservation($input['start_date'], $input['end_date'])
+    //   ->select('room_no', 'start_date', 'end_date');
 
-        $qry_reserved_rooms1 = DB::table('reservations as rr1')
-            ->where([
-              ['start_date', '<=', $input['start_date']],
-              ['end_date', '>=', $input['end_date']],
-            ])
-            ->OrWhere([
-              ['start_date', '>=', $input['start_date']],
-              ['start_date', '<=', $input['end_date']],
-              ['end_date', '>=', $input['end_date']],
-            ])
-            ->OrWhere([
-              ['start_date', '<=', $input['start_date']],
-              ['end_date', '>=', $input['start_date']],
-              ['end_date', '<=', $input['end_date']],
-            ])
-            ->select('room_no', 'start_date', 'end_date');
+    // dd($qry_reserved_rooms1->toSql());
+    // dd($qry_reserved_rooms1->get());
 
-        // dd($qry_reserved_rooms1->toSql());
-        // dd($qry_reserved_rooms1->get());
+    // $qry_reserved_rooms2 = DB::table('rooms')
+    //     ->leftJoin('qry_reserved_rooms1', 'rooms.room_no', '=', 'qry_reserved_rooms1.room_no')
+    //     ->where('category', $input['category'])
+    //     ->select('qry_reserved_rooms1.room_no', 'start_date', 'end_date',
+    //              'rooms.room_no', 'category', 'unavailable');
+    //
+    //   // dd($qry_reserved_rooms2->toSql());
+      // dd($qry_reserved_rooms2->get());
 
-      // $qry_rr1 = DB::raw('(' . $qry_reserved_rooms1->toSql() . ')');
+      // $qry = DB::table('rooms')
+      //     ->select('reservations.room_no as reservationsRoom', 'start_date', 'end_date',
+      //          'rooms.room_no as roomsRoom', 'category', 'unavailable')
+      //     ->leftJoin('reservations', 'rooms.room_no', '=', 'reservations.room_no')
+      //     ->where('category', $input['category']);
+      //
 
-      //test example!!!!
-      // tested on 3/22/2019
-      //works with reservations as a table in the join
-      // $qry_reserved_rooms2 = DB::table('rooms')
-      //   ->leftJoin('reservations', 'rooms.room_no', '=', 'reservations.room_no')
-      //   ->select('reservations.room_no', 'start_date', 'end_date',
-      //            'rooms.room_no', 'category', 'unavailable')
-      //   ->get();
+      $qry = Room::select('reservations.room_no as reservationsRoom', 'start_date', 'end_date',
+               'rooms.room_no as roomsRoom', 'category', 'unavailable')
+          ->leftJoin('reservations', 'rooms.room_no', '=', 'reservations.room_no')
+          ->inCategory($input['category']);
 
-      $qry_reserved_rooms2 = DB::table('rooms')
-        ->leftJoin(function($query) {
-          $query, 'rooms.room_no', '=', $query.room_no
-        })
-        // ->where('qry_reserved_rooms1.room_no', null)
-        ->where('category', $input['category'])
-         // ->where($input, function ($query) {
-         //        $query->where([
-         //          ['start_date', '<=', $input['start_date']],
-         //          ['end_date', '>=', $input['end_date']],
-         //        ])
-         //        ->OrWhere([
-         //          ['start_date', '>=', $input['start_date']],
-         //          ['start_date', '<=', $input['end_date']],
-         //          ['end_date', '>=', $input['end_date']],
-         //        ])
-         //        ->OrWhere([
-         //          ['start_date', '<=', $input['start_date']],
-         //          ['end_date', '>=', $input['start_date']],
-         //          ['end_date', '<=', $input['end_date']],
-         //        ]);
-         //      })
-          ->select('rr1.room_no', 'start_date', 'end_date',
-                   'rooms.room_no', 'category', 'unavailable');
+      $available_rooms = $qry->whereNull('reservationsRoom');
+      dd($available_rooms);
 
-        // dd($qry_reserved_rooms2->toSql());
-        dd($qry_reserved_rooms2->get());
-    // dd($category);
-    // dd($start_date);
-    // dd($end_date);
+      // $available_rooms = collect($qry->toArray());
+      // $qry2 = $available_rooms->filter(function ($qry) { return $qry['reservationsRoom'] == null; });
 
-    // load all reservations
-    // $reservations = Reservation::all();
-    // $first_reservation = Reservation::get()->first();
-    // $reservations = Reservation::where();
+      // $qry2 = $qry->select('reservations.room_no as reservationsRoom', 'start_date', 'end_date',
+      //                      'rooms.room_no as roomsRoom', 'category', 'unavailable')
+      //             ->whereNull('reservationsRoom');
 
-    // limit to the rooms by category
-    $rooms = Room::where('category', $category)->get();
-    dd($rooms);
-    // dd($reservations);
-    // dd($first_reservation);
+      dd($qry2->get());
 
-    // limit to the rooms by date?
-    $available = Reservation::where([
-      ['start_date', '<=', $start_date],
-      ['end_date', '>=', $end_date],
-    ])
-    ->OrWhere([
-      ['start_date', '>=', $start_date],
-      ['start_date', '<=', $end_date],
-      ['end_date', '>=', $end_date],
-    ])
-    ->OrWhere([
-      ['start_date', '<=', $start_date],
-      ['end_date', '>=', $start_date],
-      ['end_date', '<=', $end_date],
-    ])
-    ->get();
+    // return $available;
 
-    dd($available);
-
-    return $available;
-
-    // dd('available_rooms');
-    // dd($reservations);
-
-    // return $reservations;
   }
 }

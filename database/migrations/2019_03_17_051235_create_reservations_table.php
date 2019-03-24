@@ -17,15 +17,21 @@ class CreateReservationsTable extends Migration
             // $table->bigIncrements('id');
 
             $table->bigIncrements('reservation_no');
-            $table->integer('room_no');
+            $table->unsignedInteger('room_no')->nullable();
+            // $table->foreign('room_no')->references('room_no')->on('rooms')->onDelete('cascade');
+            $table->unsignedBigInteger('customer_no')->nullable();
+            $table->foreign('customer_no')->references('id')->on('customers')->onDelete('cascade');
             $table->datetime('start_date');
             $table->datetime('end_date');
             $table->decimal('amount');
-            $table->integer('customer_no');
-
 
             $table->timestamps();
         });
+
+        // Schema::table('reservations', function (Blueprint $table) {
+        //     $table->foreign('room_no')->references('room_no')->on('rooms')->onDelete('cascade');
+        //     $table->foreign('customer_no')->references('id')->on('customers')->onDelete('cascade');
+        // });
     }
 
     /**

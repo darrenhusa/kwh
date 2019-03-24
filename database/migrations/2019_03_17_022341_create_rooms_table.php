@@ -15,7 +15,7 @@ class CreateRoomsTable extends Migration
     {
         Schema::create('rooms', function (Blueprint $table) {
             // $table->bigIncrements('id'); // default pk
-            $table->integer('room_no'); //pk
+            $table->unsignedinteger('room_no')->primary(); //pk
             $table->string('category'); //fk
             $table->boolean('unavailable');
             $table->boolean('needs_cleaning');

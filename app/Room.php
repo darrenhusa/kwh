@@ -3,12 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Reservation;
 
 class Room extends Model
 {
     protected $primaryKey = 'room_no';
     public $incrementing = false;
     public $timestamps = false;
+
+    public function reservations()
+    {
+      return $this->hasMany(Reservation::class);
+    }
 
     // Examples:
     // $deluxe_rooms = App\Room::InCategory('Deluxe')->get();
