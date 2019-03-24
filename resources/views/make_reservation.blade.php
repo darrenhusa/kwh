@@ -3,7 +3,9 @@
 @section('content')
    <h1>Make Reservation</h1>
 
-   <form action="/customers/registrations" method="post">
+   <!-- <form action="/customers/registrations" method="post"> -->
+   <!--  Test trying to feed vales to RoomsController get_available action -->
+   <form action="/rooms/test" method="post">
 
      {{ csrf_field() }}
 
@@ -17,8 +19,8 @@
       <label for="end_date">End Date</label>
       <input type="date" name="end_date" id="end_date" value=""><br/>
 
-      <label for="room_categories">Select Room Category</label>
-      <select name="room_categories">
+      <label for="room_category">Select Room Category</label>
+      <select name="room_category" id="room_category">
          @foreach($room_categories as $room_category)
            <option value="{{$room_category->category}}">{{$room_category->category}}</option>
            @endforeach

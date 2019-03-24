@@ -27,4 +27,24 @@ class Reservation extends Model
       return Carbon::parse($value)->format('m/d/Y');
 
     }
+
+    public function scopeReservedDuringRequestedReservation($query, $start_date, $end_date)
+    {
+        $query->where([
+          ['start_date', '<=', $start_date],
+          ['end_date', '>=', $end_date],
+        ])
+        ->OrWhere([
+          ['start_date', '>=', $start_date],
+          ['start_date', '<=', $end_date],
+          ['end_date', '>=', $end_date],
+        ])
+        ->OrWhere([
+          ['start_date', '<=', $start_date],
+          ['end_date', '>=', $start_date],
+          ['end_date', '<=', $end_date],
+        ]);
+
+    }
+
 }

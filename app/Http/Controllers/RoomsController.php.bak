@@ -1,0 +1,195 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use Carbon\Carbon;
+use \DateTime;
+use \DB;
+
+use App\Room;
+use App\Reservation;
+
+class RoomsController extends Controller
+{
+  public function index()
+  {
+      $rooms = Room::all();
+
+      // return the deluxe rooms
+      $deluxe_rooms = Room::where('Category', 'Deluxe')->get();
+
+      dd($deluxe_rooms);
+      // dd($rooms);
+
+      return view('rooms.index', compact('rooms'));
+  }
+
+  public function get_available_rooms(Request $request)
+  {
+    // Define constants for testing
+    // $format = 'Y-m-d';
+    // $start_date = DateTime::createFromFormat($format, '2019-03-17');
+    // $end_date = DateTime::createFromFormat($format, '2019-03-18');
+    // $category = 'Economy';
+    // $category = 'Deluxe';
+
+    // dd($request->start_date);
+    // dd($request);
+
+    $input_data = [
+      'start_date' => $request->start_date,
+      'end_date' => $request->end_date,
+      'category' => $request->room_category
+    ];
+
+    dd($input_data);
+
+    $qry_reserved_rooms1 = DB::table('reservations')
+        ->where([
+          ['start_date', '<=', $start_date],
+          ['end_date', '>=', $end_date],
+        ])
+        ->OrWhere([
+          ['start_date', '>=', $start_date],
+          ['start_date', '<=', $end_date],
+          ['end_date', '>=', $end_date],
+        ])
+        ->OrWhere([
+          ['start_date', '<=', $start_date],
+          ['end_date', '>=', $start_date],
+          ['end_date', '<=', $end_date],
+        ])
+        ->select('room_no', 'start_date', 'end_date')
+        ->toSql();
+        // ->get();
+
+        $sql1 = 'select `room_no`, `start_date`, `end_date` from `reservations` where ' .
+                '(`start_date` <= :start_date1 and `end_date` >= :end_date1) or ' .
+                '(`start_date` >= :start_date2 and `start_date` <= :end_date2 and ' .
+                '`end_date` >= :end_date3) or ' .
+                '(`start_date` <= :start_date3 and ' .
+                '`end_date` >= :start_date4 and `end_date` <= :end_date4)';
+
+        $parameters = [
+          'start_date1' => $start_date,
+          'start_date2' => $start_date,
+          'start_date3' => $start_date,
+          'start_date4' => $start_date,
+          'end_date1' => $end_date,
+          'end_date2' => $end_date,
+          'end_date3' => $end_date,
+          'end_date4' => $end_date,
+        ];
+        // dd($sql1);
+
+        // enable the query log
+        // DB::enableQueryLog();
+
+        $qry_reserved_rooms1 = DB::raw(DB::select($sql1, $parameters));
+        // dd($qry_reserved_rooms1);
+
+        // $sql2 = $qry_reserved_rooms1->toSql();
+        // dd($sql2);
+        // dd($qry_reserved_rooms1);
+
+        // view the query log
+        // dd(DB::getQueryLog());
+
+        // $rooms = Room::where('category', $category)->get();
+        // dd($rooms);
+
+        // $sql = 'select * from rooms where category = ?';
+        // $query1 = DB:: select($sql, [$category]);
+        // dd($query1);
+
+        // DB::enableQueryLog();
+        // dd(DB::getQueryLog());
+
+        // dd($qry_reserved_rooms1);
+
+        // $qry_reserved_rooms1 = DB::table('reservations')
+        // ->select('room_no', 'start_date', 'end_date')
+        // ->get();
+        //
+        //   $qry_reserved_rooms1->where([
+        //       ['start_date', '<=', $start_date],
+        //       ['end_date', '>=', $end_date],
+        //     ])
+        //     ->OrWhere([
+        //       ['start_date', '>=', $start_date],
+        //       ['start_date', '<=', $end_date],
+        //       ['end_date', '>=', $end_date],
+        //     ])
+        //     ->OrWhere([
+        //       ['start_date', '<=', $start_date],
+        //       ['end_date', '>=', $start_date],
+        //       ['end_date', '<=', $end_date],
+        //     ])
+        //     ->get();
+
+      // dd($qry_reserved_rooms1);
+
+      // Need to join qry_reserved_rooms1 and rooms table
+      // with an outer join which includes all the rows from rooms
+      // $qry_reserved_rooms2 = DB::table('rooms')
+      //   ->select('rooms.room_no', 'category', 'unavailable')
+
+      //test example!!!!
+      // tested on 3/22/2019
+      //works with reservations as a table in the join
+      // $qry_reserved_rooms2 = DB::table('rooms')
+      //   ->leftJoin('reservations', 'rooms.room_no', '=', 'reservations.room_no')
+      //   ->select('reservations.room_no', 'start_date', 'end_date',
+      //            'rooms.room_no', 'category', 'unavailable')
+      //   ->get();
+
+      $qry_reserved_rooms2 = DB::table('rooms')
+        ->leftJoin($qry_reserved_rooms1, 'rooms.room_no', '=', 'reservations.room_no')
+        ->select('reservations.room_no', 'start_date', 'end_date',
+                 'rooms.room_no', 'category', 'unavailable')
+        ->get();
+
+        dd($qry_reserved_rooms2);
+    // dd($category);
+    // dd($start_date);
+    // dd($end_date);
+
+    // load all reservations
+    // $reservations = Reservation::all();
+    // $first_reservation = Reservation::get()->first();
+    // $reservations = Reservation::where();
+
+    // limit to the rooms by category
+    $rooms = Room::where('category', $category)->get();
+    dd($rooms);
+    // dd($reservations);
+    // dd($first_reservation);
+
+    // limit to the rooms by date?
+    $available = Reservation::where([
+      ['start_date', '<=', $start_date],
+      ['end_date', '>=', $end_date],
+    ])
+    ->OrWhere([
+      ['start_date', '>=', $start_date],
+      ['start_date', '<=', $end_date],
+      ['end_date', '>=', $end_date],
+    ])
+    ->OrWhere([
+      ['start_date', '<=', $start_date],
+      ['end_date', '>=', $start_date],
+      ['end_date', '<=', $end_date],
+    ])
+    ->get();
+
+    dd($available);
+
+    return $available;
+
+    // dd('available_rooms');
+    // dd($reservations);
+
+    // return $reservations;
+  }
+}

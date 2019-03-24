@@ -31,6 +31,20 @@ Route::get('/reservations','ReservationsController@index');
 Route::get('/rooms','RoomsController@index');
 
 Route::get('/rooms/get_available','RoomsController@get_available_rooms');
+Route::post('/rooms/test','RoomsController@get_available_rooms');
+
+//test vue
+Route::get('/test_vue', function(){
+  return view('vue');
+});
+
+//test ajax with vue
+Route::get('/available_rooms', function(){
+  // fake the available rooms
+  return [102, 103, 104, 105];
+});
+
+
 
 // this is the jquery-ajax example!!
 // tested successfully on 3/16/2019

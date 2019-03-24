@@ -10,49 +10,12 @@ class Room extends Model
     public $incrementing = false;
     public $timestamps = false;
 
-    // public function scopeAvailable($query)
-    // {
-    //     $format = 'Y-m-d'
-    //     $start_date = DateTime::createFromFormat($format, '2019-03-17');
-    //     $end_date = DateTime::createFromFormat($format, '2019-03-18');
-    //     $category = 'Economy';
-    //
-    //     // load all Reservations
-    //     // $all_reservations = App\Reservation::all();
-    //
-    //     // limit to the rooms by category
-    //     $reservations = App\Reservation::where('category', $category);
-    //     dd($reservations);
-    //
-    //     // limit to the rooms by date
-    //     $available = $reservations->where([
-    //       ['start_date', '<=', $start_date],
-    //       ['end_date', '>=', $end_date],
-    //     ])
-    //     ->OrWhere([
-    //       ['start_date', '>=', $start_date],
-    //       ['start_date', '<=', $end_date],
-    //       ['end_date', '>=', $end_date],
-    //     ])
-    //     ->OrWhere([
-    //       ['start_date', '<=', $start_date],
-    //       ['end_date', '>=', $start_date],
-    //       ['end_date', '<=', $end_date],
-    //     ]);
-    //
-    //     dd($available);
-    //
-    //     return $available;
-    // }
-
-    public function scopeDeluxe($query)
+    // Examples:
+    // $deluxe_rooms = App\Room::InCategory('Deluxe')->get();
+    // $economy_rooms = App\Room::InCategory('Economy')->get();
+    public function scopeInCategory($query, $category)
     {
-        return $query->where('category', 'Deluxe');
-    }
-
-    public function scopeEconomy($query)
-    {
-        return $query->where('category', 'Economy');
+        return $query->where('category', $category);
     }
 
 }
