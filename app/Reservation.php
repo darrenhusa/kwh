@@ -14,6 +14,10 @@ class Reservation extends Model
       return $this->belongsTo(Customer::class);
   }
 
+  public function room()
+  {
+      return $this->belongsTo(Room::class);
+  }
   // define accessors for start date and end date
   // to return dates without a time component and formatted as m/d/Y
     public function getStartDateAttribute($value)
@@ -28,9 +32,9 @@ class Reservation extends Model
 
     }
 
-    public function scopeReservedDuringRequestedReservation($query, $start_date, $end_date)
+    public function scopeRoomsAlreadyReserved($query, $start_date, $end_date)
     {
-        $query->where([
+        return $query->where([
           ['start_date', '<=', $start_date],
           ['end_date', '>=', $end_date],
         ])
