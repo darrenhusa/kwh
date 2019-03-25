@@ -46,19 +46,62 @@ class RoomsTableSeeder extends Seeder
           'room_no' => 105,
           'category' => 'Economy',
           'unavailable' => false,
+          'needs_cleaning' => false,
+        ]);
+        DB::table('rooms')->insert([
+          'room_no' => 106,
+          'category' => 'Economy',
+          'unavailable' => true,
+          'needs_cleaning' => true,
+        ]);
+        DB::table('rooms')->insert([
+          'room_no' => 107,
+          'category' => 'Economy',
+          'unavailable' => true,
+          'needs_cleaning' => true,
+        ]);
+        DB::table('rooms')->insert([
+          'room_no' => 108,
+          'category' => 'Economy',
+          'unavailable' => false,
+          'needs_cleaning' => true,
+        ]);
+        DB::table('rooms')->insert([
+          'room_no' => 109,
+          'category' => 'Economy',
+          'unavailable' => false,
           'needs_cleaning' => true,
         ]);
         DB::table('rooms')->insert([
           'room_no' => 200,
           'category' => 'Deluxe',
           'unavailable' => false,
-          'needs_cleaning' => false,
+          'needs_cleaning' => true,
         ]);
         DB::table('rooms')->insert([
           'room_no' => 201,
           'category' => 'Deluxe',
           'unavailable' => true,
-          'needs_cleaning' => true,
+          'needs_cleaning' => false,
+        ]);
+
+        DB::table('rooms')->insert([
+          'room_no' => 300,
+          'category' => 'Suite',
+          'unavailable' => true,
+          'needs_cleaning' => false,
+        ]);
+        DB::table('rooms')->insert([
+          'room_no' => 301,
+          'category' => 'Suite',
+          'unavailable' => false,
+          'needs_cleaning' => false,
+        ]);
+        DB::table('rooms')->insert([
+          'room_no' => 302,
+          'category' => 'Suite',
+          'unavailable' => true,
+          'needs_cleaning' => false,
         ]);
     }
 }

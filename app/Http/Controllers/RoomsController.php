@@ -77,9 +77,22 @@ class RoomsController extends Controller
 
       $qry = Room::select('reservations.room_no as reservationsRoom', 'start_date', 'end_date',
                'rooms.room_no as roomsRoom', 'category', 'unavailable')
-          ->leftJoin('reservations', function ($join) {
+          ->leftJoin('reservations', function ($join) use ($input) {
                     $join->on('rooms.room_no', '=', 'reservations.room_no');
-                    // $join->whereNull('reservations.room_no');
+                    // $join->where([
+                    //   ['start_date', '<=', $input['start_date']],
+                    //   ['end_date', '>=', $input['end_date']],
+                    // ]);
+                    // $join->OrWhere([
+                    //   ['start_date', '>=', $input['start_date']],
+                    //   ['start_date', '<=', $input['end_date']],
+                    //   ['end_date', '>=', $input['end_date']],
+                    // ]);
+                    // $join->OrWhere([
+                    //   ['start_date', '<=', $input['start_date']],
+                    //   ['end_date', '>=', $input['start_date']],
+                    //   ['end_date', '<=', $input['end_date']],
+                    // ]);
       })
       // ->where([
       //   ['start_date', '<=', $input['start_date']],
