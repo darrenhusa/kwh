@@ -14,9 +14,9 @@ class CreateRoomCategoriesTable extends Migration
     public function up()
     {
         Schema::create('room_categories', function (Blueprint $table) {
-            $table->string('category'); //pk
+            $table->string('category')->primary(); //pk
             $table->text('description');
-            $table->decimal('rate'); 
+            $table->decimal('rate');
         });
     }
 
