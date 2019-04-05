@@ -17,7 +17,8 @@ class CreateRoomsTable extends Migration
             // $table->bigIncrements('id'); // default pk
             $table->unsignedinteger('room_no')->primary(); //pk
             $table->string('category'); //fk
-            $table->foreign('category')->references('category')->on('room_categories')->onDelete('cascade');
+            $table->foreign('category')->references('category')->on('room_categories');
+            // $table->foreign('category')->references('category')->on('room_categories')->onDelete('cascade');
 
             $table->boolean('unavailable');
             $table->boolean('needs_cleaning');
