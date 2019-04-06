@@ -30,10 +30,14 @@ Route::get('/test_vue', function(){
 });
 
 //test ajax with vue
-Route::get('/available_rooms', function(){
-  // fake the available rooms
-  return [102, 103, 104, 105];
-});
+// Route::get('/available_rooms', function(){
+//   // fake the available rooms
+//   return [102, 103, 104, 105];
+// });
+
+Route::get('/available_rooms','RoomsController@test_available_rooms');
+
+
 
 
 

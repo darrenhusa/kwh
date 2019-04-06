@@ -85,4 +85,11 @@ class RoomsController extends Controller
 
       return $available_rooms;
   }
+
+  public function test_available_rooms()
+  {
+    return [102, 103, 104, 105];
+
+  }
+
 }

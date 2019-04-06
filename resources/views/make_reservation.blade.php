@@ -39,9 +39,17 @@
       <!--  need to programmatically populate this control! -->
       <div id="room_select">
         <label for="rooms">Select Room</label>
-        <select v-for="rooms as room">
-            <option>@{{ room }}</option>
-        </select><br/>
+        <select>
+        {{-- <select v-model="rooms"> --}}
+            <option disabled value="">Please select room</option>
+            <option v-for="room in rooms" :value="room">@{{ room }}
+            </option>
+        </select>
+
+        {{-- <ul>
+          <li v-for="room in rooms">@{{ room}}</li>
+        </ul> --}}
+
       </div>
 
       <input type="submit" value="Save">
@@ -58,8 +66,18 @@
        el: '#room_select',
        data: {
          rooms: []
-       }
+       },
 
+       mounted() {
+         // Make an ajax request and render the response
+         // alert('alert');
+         // axios.get('/available_rooms').then(response => console.log(response.data));
+         // test
+         // axios.get('/available_rooms').then(response => this.rooms = response.data);
+
+         axios.get('/rooms/get_available').then(response => this.rooms = response.data);
+
+       }
      })
 
    </script>
