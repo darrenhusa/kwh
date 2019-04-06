@@ -5,7 +5,9 @@
 
    <!-- <form action="/customers/registrations" method="post"> -->
    <!--  Test trying to feed vales to RoomsController get_available action -->
-   <form action="/rooms/test" method="post">
+   <form action="/customers/{{ $customer->id }}/reservations" method="post">
+     {{--  temporary for testing --}}
+     {{-- <form action="/rooms/test" method="post"> --}}
 
      {{ csrf_field() }}
 
@@ -39,12 +41,13 @@
       <!--  need to programmatically populate this control! -->
       <div id="room_select">
         <label for="rooms">Select Room</label>
-        <select>
+        <select v-model="selected">
         {{-- <select v-model="rooms"> --}}
             <option disabled value="">Please select room</option>
-            <option v-for="room in rooms" :value="room">@{{ room }}
+            <option v-for="room in rooms" v-bind:value="room">@{{ room }}
             </option>
         </select>
+        <p>Your choice is @{{ selected }}</p>
 
         {{-- <ul>
           <li v-for="room in rooms">@{{ room}}</li>
@@ -60,26 +63,7 @@
    <!-- load vue and axios -->
    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
-   <script>
-
-     new Vue({
-       el: '#room_select',
-       data: {
-         rooms: []
-       },
-
-       mounted() {
-         // Make an ajax request and render the response
-         // alert('alert');
-         // axios.get('/available_rooms').then(response => console.log(response.data));
-         // test
-         // axios.get('/available_rooms').then(response => this.rooms = response.data);
-
-         axios.get('/rooms/get_available').then(response => this.rooms = response.data);
-
-       }
-     })
-
-   </script>
+   {{--  temporarily in public folder --}}
+   <script src="/js/load_rooms_drop_down.js"></script>
 
 @endsection

@@ -88,7 +88,7 @@ class RoomsController extends Controller
 
   public function test_available_rooms()
   {
-    return [102, 103, 104, 105];
+    return [102, 103, 104, 105, 200, 201, 300];
 
   }
 
