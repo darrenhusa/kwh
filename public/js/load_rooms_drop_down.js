@@ -1,4 +1,5 @@
 new Vue({
+  // el: '#room_list',
   el: '#room_select',
   data: {
     selected: '',

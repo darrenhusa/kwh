@@ -40,14 +40,14 @@
       <!--  Add room select control -->
       <!--  need to programmatically populate this control! -->
       <div id="room_select">
-        <label for="rooms">Select Room</label>
+        <label>Select Room</label>
+
         <select v-model="selected">
-        {{-- <select v-model="rooms"> --}}
-            <option disabled value="">Please select room</option>
-            <option v-for="room in rooms" v-bind:value="room">@{{ room }}
-            </option>
+          <option v-for="room in rooms" v-bind:value="room">
+            @{{ room }}
+          </option>
         </select>
-        <p>Your choice is @{{ selected }}</p>
+        <span>Selected: @{{ selected }}</span>
 
         {{-- <ul>
           <li v-for="room in rooms">@{{ room}}</li>

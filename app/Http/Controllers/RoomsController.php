@@ -75,7 +75,7 @@ class RoomsController extends Controller
       // dd($qry->get());
       // dd($qry->get()->pluck('room_no'));
       // dd($qry->get()->value('room_no'));
-      dd($qry->get()->pluck('room_no')->toArray());
+      // dd($qry->get()->pluck('room_no')->toArray());
       // dd($qry->get()->pluck('roomsRoom'));
       // dd($qry->get()->pluck('rooms.room_no'));
 
@@ -89,7 +89,6 @@ class RoomsController extends Controller
   public function test_available_rooms()
   {
     return [102, 103, 104, 105, 200, 201, 300];
-
   }
 
 }
