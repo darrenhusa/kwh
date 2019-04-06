@@ -37,10 +37,31 @@
 
       <!--  Add room select control -->
       <!--  need to programmatically populate this control! -->
+      <div id="room_select">
+        <label for="rooms">Select Room</label>
+        <select v-for="rooms as room">
+            <option>@{{ room }}</option>
+        </select><br/>
+      </div>
 
       <input type="submit" value="Save">
       <input type="reset" value="Cancel">
 
    </form>
+
+   <!-- load vue and axios -->
+   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
+   <script>
+
+     new Vue({
+       el: '#room_select',
+       data: {
+         rooms: []
+       }
+
+     })
+
+   </script>
 
 @endsection
