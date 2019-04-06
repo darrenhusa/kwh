@@ -29,7 +29,6 @@ class CustomerReservationsController extends Controller
 
   public function store(Request $request, $id)
   {
-      // TODO - Need to figure out how to pass/bind value to room!!!!
       // $input = [
       //   // 'customer' => $id,
       //   // 'customer' => $customer->id,
@@ -43,19 +42,20 @@ class CustomerReservationsController extends Controller
 
       // dd($id);
       // dd($request);
+      // dd($request->all());
       // dd($input);
 
       // $customer = Customer::findOrFail($id);
 
-      $data = [
-        'customer_no' => $id,
-        // 'customer_no' => $customer->id,
-        'room_no' => 200,
-        'start_date' => $request->start_date,
-        'end_date' => $request->end_date,
-        'created_at' => Carbon::now(),
-        'updated_at' => Carbon::now(),
-      ];
+      // $data = [
+      //   'customer_no' => $id,
+      //   // 'customer_no' => $customer->id,
+      //   'room_no' => $request->selected,
+      //   'start_date' => $request->start_date,
+      //   'end_date' => $request->end_date,
+      //   'created_at' => Carbon::now(),
+      //   'updated_at' => Carbon::now(),
+      // ];
 
       // dd($data);
 
@@ -64,7 +64,7 @@ class CustomerReservationsController extends Controller
       $reservation = new Reservation();
 
       $reservation->customer_no = $id;
-      $reservation->room_no = 200;
+      $reservation->room_no = $request->selected;
       $reservation->start_date = request('start_date');
       $reservation->end_date = request('end_date');
       $reservation->amount = 0;

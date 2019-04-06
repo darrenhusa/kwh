@@ -29,4 +29,8 @@
     @endforeach
   </table>
 
+  <p>
+    <a href="http://localhost:8000/">Home Page</a>
+  </p>
+
 @endsection

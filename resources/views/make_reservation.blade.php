@@ -49,6 +49,9 @@
         </select>
         <span>Selected: @{{ selected }}</span>
 
+        {{-- use a hidden input tp pass room number into the request --}}
+        <input type="hidden" name="selected" :value="selected">
+
         {{-- <ul>
           <li v-for="room in rooms">@{{ room}}</li>
         </ul> --}}
