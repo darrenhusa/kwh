@@ -23,6 +23,8 @@
    <script src="/js/app.js"></script>
    <script>
 
+    window.csrf_token = "{{ csrf_token() }}"
+
      new Vue({
 
        el: '#myForm',

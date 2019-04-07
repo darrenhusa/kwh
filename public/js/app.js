@@ -1809,6 +1809,7 @@ __webpack_require__.r(__webpack_exports__);
   // end data
   methods: {
     saveReservation: function saveReservation() {
+      var now = new Date();
       console.log('inside saveReservation');
       var data = {
         'start_date': this.start_date,
@@ -1817,24 +1818,32 @@ __webpack_require__.r(__webpack_exports__);
         'room_no': this.selected_room,
         'amount': 0,
         'customer_no': this.customer.id,
-        'created_at': null,
-        'updated_at': null
+        'created_at': now,
+        'updated_at': now
       };
-      console.log(data); //axios.post('/customers/registrations', data)
-      //    .then(function (response) {
-      //        console.log(response);
-      //      })
-      //      .catch(function (error) {
-      //        console.log(error);
-      //});
+      console.log(data);
+      var url = '/customers/' + data.customer_no + '/reservations';
+      console.log('url = ' + url);
+      console.log('calling axios to save reservation');
+      axios.post(url, data).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
+      });
     },
     //end saveReservation
     loadRooms: function loadRooms() {
       var _this = this;
 
       //alert('inside loadRooms');
-      console.log('inside loadRooms');
-      axios.get('/available_rooms').then(function (response) {
+      console.log('inside loadRooms'); // replace url with call to run action to lookup
+      // available rooms only!
+      //TODO - Fix errors when use the url below
+      //var url = '/rooms/get_available';
+      // TEST - Loads static rooms into combo box
+
+      var url = '/available_rooms';
+      axios.get(url).then(function (response) {
         return _this.rooms = response.data;
       });
     },
@@ -36947,6 +36956,7 @@ var render = function() {
       domProps: { value: _vm.start_date },
       on: {
         blur: _vm.testControls,
+        change: _vm.testControls,
         input: function($event) {
           if ($event.target.composing) {
             return
@@ -36973,6 +36983,7 @@ var render = function() {
       domProps: { value: _vm.end_date },
       on: {
         blur: _vm.testControls,
+        change: _vm.testControls,
         input: function($event) {
           if ($event.target.composing) {
             return
@@ -37000,19 +37011,22 @@ var render = function() {
         attrs: { name: "room_category" },
         on: {
           blur: _vm.testControls,
-          change: function($event) {
-            var $$selectedVal = Array.prototype.filter
-              .call($event.target.options, function(o) {
-                return o.selected
-              })
-              .map(function(o) {
-                var val = "_value" in o ? o._value : o.value
-                return val
-              })
-            _vm.room_category = $event.target.multiple
-              ? $$selectedVal
-              : $$selectedVal[0]
-          }
+          change: [
+            function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
+                })
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.room_category = $event.target.multiple
+                ? $$selectedVal
+                : $$selectedVal[0]
+            },
+            _vm.testControls
+          ]
         }
       },
       [
@@ -37040,19 +37054,22 @@ var render = function() {
           }
         ],
         on: {
-          change: function($event) {
-            var $$selectedVal = Array.prototype.filter
-              .call($event.target.options, function(o) {
-                return o.selected
-              })
-              .map(function(o) {
-                var val = "_value" in o ? o._value : o.value
-                return val
-              })
-            _vm.selected_room = $event.target.multiple
-              ? $$selectedVal
-              : $$selectedVal[0]
-          }
+          change: [
+            function($event) {
+              var $$selectedVal = Array.prototype.filter
+                .call($event.target.options, function(o) {
+                  return o.selected
+                })
+                .map(function(o) {
+                  var val = "_value" in o ? o._value : o.value
+                  return val
+                })
+              _vm.selected_room = $event.target.multiple
+                ? $$selectedVal
+                : $$selectedVal[0]
+            },
+            _vm.testControls
+          ]
         }
       },
       _vm._l(_vm.rooms, function(room) {
