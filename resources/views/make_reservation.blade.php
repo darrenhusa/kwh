@@ -10,7 +10,7 @@
 
      {{ csrf_field() }}
 
-      <div id="app">
+      <div id="myForm">
         <make-reservation-component :customer="{{ $customer }}"></make-reservation-component>
       </div>
 
@@ -21,6 +21,15 @@
    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
    {{--  temporarily in public folder --}}
    <script src="/js/app.js"></script>
+   <script>
+
+     new Vue({
+
+       el: '#myForm',
+
+     })
+
+   </script>
    {{-- <script src="/js/load_rooms_drop_down.js"></script> --}}
 
 @endsection

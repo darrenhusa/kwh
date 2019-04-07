@@ -1788,24 +1788,35 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['customer'],
   data: function data() {
     return {
       start_date: '',
       end_date: '',
-      room_category: ''
+      room_category: '',
+      selected_room: '',
+      rooms: [] //end return
+
     };
   },
+  // end data
   methods: {
     saveReservation: function saveReservation() {
+      console.log('inside saveReservation');
       var data = {
         'start_date': this.start_date,
         'end_date': this.end_date,
         'room_category': this.room_category,
         'room_no': this.selected_room,
         'amount': 0,
-        'customer_no': this.customer_no,
+        'customer_no': this.customer.id,
         'created_at': null,
         'updated_at': null
       };
@@ -1822,6 +1833,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       //alert('inside loadRooms');
+      console.log('inside loadRooms');
       axios.get('/available_rooms').then(function (response) {
         return _this.rooms = response.data;
       });
@@ -1829,6 +1841,7 @@ __webpack_require__.r(__webpack_exports__);
     //end loadRooms
     testControls: function testControls() {
       //alert('inside testControls')
+      //console.log('inside testControls')
       // verify controls are not empty
       var start_date_not_empty = !(this.start_date === '');
       var end_date_not_empty = !(this.end_date === '');
@@ -1837,15 +1850,15 @@ __webpack_require__.r(__webpack_exports__);
       //console.log('category_not_empty = ' + category_not_empty);
 
       if (start_date_not_empty && end_date_not_empty && category_not_empty) {
-        console.log('All the controls are populated!');
-        loadRooms();
+        //console.log('All the controls are populated!');
+        this.loadRooms();
       }
     } // end testControls
 
   },
   //end methods
   mounted: function mounted() {
-    // load room category combo box
+    // TODO - Add code to load room category combo box
     console.log('Make Reservation Component mounted.');
   } //end mounted
 
@@ -37013,6 +37026,45 @@ var render = function() {
     _vm._v(" "),
     _c("br"),
     _vm._v(" "),
+    _c("label", [_vm._v("Select Room")]),
+    _vm._v(" "),
+    _c(
+      "select",
+      {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.selected_room,
+            expression: "selected_room"
+          }
+        ],
+        on: {
+          change: function($event) {
+            var $$selectedVal = Array.prototype.filter
+              .call($event.target.options, function(o) {
+                return o.selected
+              })
+              .map(function(o) {
+                var val = "_value" in o ? o._value : o.value
+                return val
+              })
+            _vm.selected_room = $event.target.multiple
+              ? $$selectedVal
+              : $$selectedVal[0]
+          }
+        }
+      },
+      _vm._l(_vm.rooms, function(room) {
+        return _c("option", { domProps: { value: room } }, [
+          _vm._v(_vm._s(room))
+        ])
+      }),
+      0
+    ),
+    _vm._v(" "),
+    _c("br"),
+    _vm._v(" "),
     _c("input", {
       attrs: { type: "submit", value: "Save" },
       on: {
@@ -49200,10 +49252,9 @@ Vue.component('make-reservation-component', __webpack_require__(/*! ./components
  * the page. Then, you may begin adding components to this application
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
-
-var app = new Vue({
-  el: '#app'
-});
+// const app = new Vue({
+//     el: '#app'
+// });
 
 /***/ }),
 
