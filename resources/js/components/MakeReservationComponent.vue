@@ -17,7 +17,7 @@
       </select>
       <br />
 
-      <input type="submit" value="Save" @click.prevent="">
+      <input type="submit" value="Save" @click.prevent="saveReservation">
       <input type="reset" value="Cancel">
 
     </div>
@@ -40,46 +40,71 @@
 
         methods: {
 
-          showAlert() {
+          saveReservation: function() {
 
-            console.log('inside showAlert')
+            var data = {
+              'start_date': this.start_date,
+              'end_date': this.end_date,
+              'room_category': this.room_category,
+              'room_no': this.selected_room,
+              'amount': 0,
+              'customer_no': this.customer_no,
+              'created_at': null,
+              'updated_at': null,
+            };
 
-          },
+            console.log(data);
 
-          loadRooms() {
+            //axios.post('/customers/registrations', data)
+            //    .then(function (response) {
+            //        console.log(response);
+            //      })
+            //      .catch(function (error) {
+            //        console.log(error);
+            //});
 
-            alert('inside loadRooms')
+          }, //end saveReservation
 
-          },
+          loadRooms: function() {
 
-          testControls() {
+            //alert('inside loadRooms');
+
+            axios.get('/available_rooms').then(response => this.rooms = response.data);
+
+
+          }, //end loadRooms
+
+          testControls: function() {
 
             //alert('inside testControls')
 
             // verify controls are not empty
-            var start_date_not_empty = ! (this.start_date === '')
-            var end_date_not_empty = ! (this.end_date === '')
-            var category_not_empty = ! (this.room_category === '')
+            var start_date_not_empty = ! (this.start_date === '');
+            var end_date_not_empty = ! (this.end_date === '');
+            var category_not_empty = ! (this.room_category === '');
 
-            console.log('start_date_not_empty = ' + start_date_not_empty)
-            console.log('end_date_not_empty = ' + end_date_not_empty)
-            console.log('category_not_empty = ' + category_not_empty)
+            //console.log('start_date_not_empty = ' + start_date_not_empty);
+            //console.log('end_date_not_empty = ' + end_date_not_empty);
+            //console.log('category_not_empty = ' + category_not_empty);
 
             if(start_date_not_empty && end_date_not_empty && category_not_empty)
             {
-                loadRooms()
+                console.log('All the controls are populated!');
+
+                loadRooms();
 
             }
-          },
 
-        },
+          }, // end testControls
+
+        }, //end methods
 
         mounted() {
 
           // load room category combo box
+            console.log('Make Reservation Component mounted.');
 
-            console.log('Make Reservation Component mounted.')
+        } //end mounted
 
-        }
-    }
+    } //end export default
 </script>

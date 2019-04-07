@@ -1798,32 +1798,58 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   methods: {
-    showAlert: function showAlert() {
-      console.log('inside showAlert');
+    saveReservation: function saveReservation() {
+      var data = {
+        'start_date': this.start_date,
+        'end_date': this.end_date,
+        'room_category': this.room_category,
+        'room_no': this.selected_room,
+        'amount': 0,
+        'customer_no': this.customer_no,
+        'created_at': null,
+        'updated_at': null
+      };
+      console.log(data); //axios.post('/customers/registrations', data)
+      //    .then(function (response) {
+      //        console.log(response);
+      //      })
+      //      .catch(function (error) {
+      //        console.log(error);
+      //});
     },
+    //end saveReservation
     loadRooms: function loadRooms() {
-      alert('inside loadRooms');
+      var _this = this;
+
+      //alert('inside loadRooms');
+      axios.get('/available_rooms').then(function (response) {
+        return _this.rooms = response.data;
+      });
     },
+    //end loadRooms
     testControls: function testControls() {
       //alert('inside testControls')
       // verify controls are not empty
       var start_date_not_empty = !(this.start_date === '');
       var end_date_not_empty = !(this.end_date === '');
-      var category_not_empty = !(this.room_category === '');
-      console.log('start_date_not_empty = ' + start_date_not_empty);
-      console.log('end_date_not_empty = ' + end_date_not_empty);
-      console.log('category_not_empty = ' + category_not_empty);
+      var category_not_empty = !(this.room_category === ''); //console.log('start_date_not_empty = ' + start_date_not_empty);
+      //console.log('end_date_not_empty = ' + end_date_not_empty);
+      //console.log('category_not_empty = ' + category_not_empty);
 
       if (start_date_not_empty && end_date_not_empty && category_not_empty) {
+        console.log('All the controls are populated!');
         loadRooms();
       }
-    }
+    } // end testControls
+
   },
+  //end methods
   mounted: function mounted() {
     // load room category combo box
     console.log('Make Reservation Component mounted.');
-  }
-});
+  } //end mounted
+
+}); //end export default
 
 /***/ }),
 
@@ -36992,6 +37018,7 @@ var render = function() {
       on: {
         click: function($event) {
           $event.preventDefault()
+          return _vm.saveReservation($event)
         }
       }
     }),
