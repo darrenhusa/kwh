@@ -1,9 +1,9 @@
 Vue.component('make-reservation-component', {
 
   props: [
-    'customer_no': '',
-    'last_name': '',
-    'first_name': '',
+    'customer_no': this.customer->id,
+    'last_name': this.customer->last_name,
+    'first_name': this.customer->first_name,
   ],
 
   data() {
