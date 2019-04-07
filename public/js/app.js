@@ -1792,8 +1792,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['customer'],
   data: function data() {
@@ -1808,40 +1806,16 @@ __webpack_require__.r(__webpack_exports__);
   },
   // end data
   methods: {
-    saveReservation: function saveReservation() {
-      var now = new Date();
-      console.log('inside saveReservation');
-      var data = {
-        'start_date': this.start_date,
-        'end_date': this.end_date,
-        'room_category': this.room_category,
-        'room_no': this.selected_room,
-        'amount': 0,
-        'customer_no': this.customer.id,
-        'created_at': now,
-        'updated_at': now
-      };
-      console.log(data);
-      var url = '/customers/' + data.customer_no + '/reservations';
-      console.log('url = ' + url);
-      console.log('calling axios to save reservation');
-      axios.post(url, data).then(function (response) {
-        console.log(response);
-      })["catch"](function (error) {
-        console.log(error);
-      });
-    },
-    //end saveReservation
     loadRooms: function loadRooms() {
       var _this = this;
 
       //alert('inside loadRooms');
-      console.log('inside loadRooms'); // replace url with call to run action to lookup
+      //console.log('inside loadRooms');
+      // replace url with call to run action to lookup
       // available rooms only!
       //TODO - Fix errors when use the url below
       //var url = '/rooms/get_available';
       // TEST - Loads static rooms into combo box
-
       var url = '/available_rooms';
       axios.get(url).then(function (response) {
         return _this.rooms = response.data;
@@ -37080,19 +37054,7 @@ var render = function() {
       0
     ),
     _vm._v(" "),
-    _c("br"),
-    _vm._v(" "),
-    _c("input", {
-      attrs: { type: "submit", value: "Save" },
-      on: {
-        click: function($event) {
-          $event.preventDefault()
-          return _vm.saveReservation($event)
-        }
-      }
-    }),
-    _vm._v(" "),
-    _c("input", { attrs: { type: "reset", value: "Cancel" } })
+    _c("br")
   ])
 }
 var staticRenderFns = []

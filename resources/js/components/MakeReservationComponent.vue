@@ -23,8 +23,6 @@
       </select>
       <br />
 
-      <input type="submit" value="Save" @click.prevent="saveReservation">
-      <input type="reset" value="Cancel">
 
     </div>
 </template>
@@ -50,45 +48,10 @@
 
     methods: {
 
-        saveReservation: function() {
-
-          const now = new Date();
-
-          console.log('inside saveReservation');
-
-          var data = {
-            'start_date': this.start_date,
-            'end_date': this.end_date,
-            'room_category': this.room_category,
-            'room_no': this.selected_room,
-            'amount': 0,
-            'customer_no': this.customer.id,
-            'created_at': now,
-            'updated_at': now,
-          };
-
-          console.log(data);
-
-          var url = '/customers/' + data.customer_no +'/reservations';
-
-          console.log('url = ' + url);
-
-          console.log('calling axios to save reservation');
-
-          axios.post(url, data)
-              .then(function (response) {
-                  console.log(response);
-                })
-                .catch(function (error) {
-                  console.log(error);
-          });
-
-        }, //end saveReservation
-
         loadRooms: function() {
 
           //alert('inside loadRooms');
-          console.log('inside loadRooms');
+          //console.log('inside loadRooms');
 
           // replace url with call to run action to lookup
           // available rooms only!

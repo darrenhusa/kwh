@@ -6,12 +6,17 @@
    <!-- <form action="/customers/registrations" method="post"> -->
    <!--  Test trying to feed vales to RoomsController get_available action -->
    {{-- <form> --}}
-   <form action="/customers/registrations" method="post">
+   <form action="/registrations" method="get">
+   {{-- <form action="/customers/registrations" method="get"> --}}
 
      {{ csrf_field() }}
 
       <div id="myForm">
         <make-reservation-component :customer="{{ $customer }}"></make-reservation-component>
+
+        <input type="submit" value="Save" @click="saveReservation">
+        <input type="reset" value="Cancel">
+
       </div>
 
    </form>
@@ -28,6 +33,45 @@
      new Vue({
 
        el: '#myForm',
+
+       methods: {
+
+         saveReservation: function() {
+
+           const now = new Date();
+
+           console.log('inside saveReservation');
+
+           var data = {
+             'start_date': this.start_date,
+             'end_date': this.end_date,
+             'room_category': this.room_category,
+             'room_no': this.selected_room,
+             'amount': 0,
+             'customer_no': this.customer.id,
+             'created_at': now,
+             'updated_at': now,
+           };
+
+           console.log(data);
+
+           var url = '/customers/' + data.customer_no +'/reservations';
+
+           //console.log('url = ' + url);
+
+           console.log('calling axios to save reservation');
+
+           axios.post(url, data)
+               .then(function (response) {
+                   console.log(response);
+                 })
+                 .catch(function (error) {
+                   console.log(error);
+           });
+
+         }, //end saveReservation
+
+       }
 
      })
 

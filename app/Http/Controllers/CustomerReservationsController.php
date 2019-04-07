@@ -61,17 +61,17 @@ class CustomerReservationsController extends Controller
 
       // App\Reservation::insert($data);
 
-      $reservation = new Reservation();
+      // $reservation = new Reservation();
 
-      $reservation->customer_no = $id;
-      $reservation->room_no = $request->selected;
-      $reservation->start_date = request('start_date');
-      $reservation->end_date = request('end_date');
-      $reservation->amount = 0;
-      $reservation->created_at = Carbon::now();
-      $reservation->updated_at = Carbon::now();
-
-      $reservation->save();
+      // $reservation->customer_no = $id;
+      // $reservation->room_no = $request->selected;
+      // $reservation->start_date = request('start_date');
+      // $reservation->end_date = request('end_date');
+      // $reservation->amount = 0;
+      // $reservation->created_at = Carbon::now();
+      // $reservation->updated_at = Carbon::now();
+      //
+      // $reservation->save();
 
       // dd($reservation);
 
