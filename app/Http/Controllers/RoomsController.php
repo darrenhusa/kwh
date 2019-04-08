@@ -37,6 +37,13 @@ class RoomsController extends Controller
     // dd($request->start_date);
     // dd($request);
 
+    // FOR TESTING!!!!!
+    // $input = [
+    //   'start_date' => $start_date,
+    //   'end_date' => $end_date,
+    //   'category' => $category
+    // ];
+
     $input = [
       'start_date' => $request->start_date,
       'end_date' => $request->end_date,
@@ -75,15 +82,12 @@ class RoomsController extends Controller
       // dd($qry->get());
       // dd($qry->get()->pluck('room_no'));
       // dd($qry->get()->value('room_no'));
+
       // dd($qry->get()->pluck('room_no')->toArray());
-      // dd($qry->get()->pluck('roomsRoom'));
-      // dd($qry->get()->pluck('rooms.room_no'));
 
-      // dd($qry->get()->pluck('roomsRoom'));
-      //
-      // $available_rooms = $qry->get();
+      $available_rooms = $qry->get()->pluck('room_no')->toArray();
 
-      dd($qry->get());
+      // dd($available_rooms);
 
       // $available_rooms = $qry->get()->pluck('roomsRoom');
 

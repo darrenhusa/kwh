@@ -1814,9 +1814,9 @@ __webpack_require__.r(__webpack_exports__);
       // replace url with call to run action to lookup
       // available rooms only!
       //TODO - Fix errors when use the url below
-      //var url = '/rooms/get_available';
-      // TEST - Loads static rooms into combo box
-      var url = '/available_rooms';
+      var url = '/rooms/get_available'; // TEST - Loads static rooms into combo box
+      //var url = '/available_rooms';
+
       axios.get(url).then(function (response) {
         return _this.rooms = response.data;
       });
