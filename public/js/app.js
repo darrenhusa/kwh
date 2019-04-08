@@ -37034,6 +37034,7 @@ var render = function() {
             expression: "selected_room"
           }
         ],
+        attrs: { name: "selected_room" },
         on: {
           change: [
             function($event) {

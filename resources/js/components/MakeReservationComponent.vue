@@ -18,7 +18,7 @@
       <br />
 
       <label>Select Room</label>
-      <select v-model="selected_room" @change="testControls">
+      <select name="selected_room" v-model="selected_room" @change="testControls">
         <option v-for="room in rooms" :value="room">{{ room }}</option>
       </select>
 
