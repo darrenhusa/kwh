@@ -83,7 +83,11 @@ class RoomsController extends Controller
       //
       $available_rooms = $qry->get()->pluck('roomsRoom');
 
-      return $available_rooms;
+      \Log::info($available_rooms);
+
+      return ['rooms' => $available_rooms];
+      // return $available_rooms->toArray();
+      // return response()->json($available_rooms);
   }
 
   public function test_available_rooms()

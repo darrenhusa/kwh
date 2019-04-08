@@ -25,10 +25,12 @@ Route::get('/rooms','RoomsController@index');
 Route::get('/rooms/get_available','RoomsController@get_available_rooms');
 Route::post('/rooms/test','RoomsController@get_available_rooms');
 
+// Route::get('/load_categories','RoomCategoriesController@get_room_categories');
+
 //test vue
-Route::get('/test_vue', function(){
-  return view('vue');
-});
+// Route::get('/test_vue', function(){
+//   return view('vue');
+// });
 
 //test ajax with vue
 Route::get('/available_rooms', function(){

@@ -21,8 +21,8 @@
       <select v-model="selected_room" @change="testControls">
         <option v-for="room in rooms" :value="room">{{ room }}</option>
       </select>
-      <br />
 
+      <br />
 
     </div>
 </template>
@@ -57,10 +57,10 @@
           // available rooms only!
 
           //TODO - Fix errors when use the url below
-          //var url = '/rooms/get_available';
+          var url = '/rooms/get_available';
 
           // TEST - Loads static rooms into combo box
-          var url = '/available_rooms';
+          //var url = '/available_rooms';
 
           axios.get(url)
               .then(response => this.rooms = response.data);
@@ -89,14 +89,27 @@
 
           }
 
-        } // end testControls
+        }, // end testControls
+
+//        loadRoomCategories: function() {
+
+//          console.log('inside loadRoomCategories');
+
+  //        var url = '/load_categories';
+
+  //        axios.get(url)
+  //            .then(response => this.room_categories = response.data);
+
+  //      }, //end loadRoomCategories
 
       }, //end methods
 
     mounted() {
 
-      // TODO - Add code to load room category combo box
         console.log('Make Reservation Component mounted.');
+
+        // TODO - Add code to load room category combo box
+        this.loadRoomCategories;
 
     } //end mounted
 
