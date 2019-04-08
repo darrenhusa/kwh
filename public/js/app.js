@@ -1822,7 +1822,8 @@ __webpack_require__.r(__webpack_exports__);
         'end_date': this.end_date,
         'room_category': this.room_category
       };
-      console.log('data = ' + data);
+      console.log('data = ' + data); //alert(data);
+
       axios.get(url, data).then(function (response) {
         return _this.rooms = response.data;
       }).then(function (response) {
@@ -1858,8 +1859,7 @@ __webpack_require__.r(__webpack_exports__);
   //end methods
   mounted: function mounted() {
     console.log('Make Reservation Component mounted.'); // TODO - Add code to load room category combo box
-
-    this.loadRoomCategories;
+    //this.loadRoomCategories;
   } //end mounted
 
 }); //end export default

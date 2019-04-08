@@ -69,6 +69,7 @@
           };
 
           console.log('data = ' + data);
+          //alert(data);
 
           axios.get(url, data)
               .then(response => this.rooms = response.data)
@@ -123,7 +124,7 @@
         console.log('Make Reservation Component mounted.');
 
         // TODO - Add code to load room category combo box
-        this.loadRoomCategories;
+        //this.loadRoomCategories;
 
     } //end mounted
 
