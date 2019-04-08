@@ -62,11 +62,12 @@
           // TEST - Loads static rooms into combo box
           //var url = '/available_rooms';
 
-          //var data = {
-          //  'start_date': this.start_date,
-          //  'end_date': this.end_date,
-          //  'room_category': this.room_category,
-          //};
+          // For diagnostic printouts!
+          var data = {
+            'start_date': this.start_date,
+            'end_date': this.end_date,
+            'room_category': this.room_category,
+          };
 
           console.log('data = ' + data);
           //alert(data);
