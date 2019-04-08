@@ -1817,8 +1817,18 @@ __webpack_require__.r(__webpack_exports__);
       var url = '/rooms/get_available'; // TEST - Loads static rooms into combo box
       //var url = '/available_rooms';
 
-      axios.get(url).then(function (response) {
+      var data = {
+        'start_date': this.start_date,
+        'end_date': this.end_date,
+        'room_category': this.room_category
+      };
+      console.log('data = ' + data);
+      axios.get(url, data).then(function (response) {
         return _this.rooms = response.data;
+      }).then(function (response) {
+        console.log(response);
+      })["catch"](function (error) {
+        console.log(error);
       });
     },
     //end loadRooms

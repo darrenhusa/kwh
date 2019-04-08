@@ -28,14 +28,15 @@ class RoomsController extends Controller
   public function get_available_rooms(Request $request)
   {
     // Define constants for testing
-    $format = 'Y-m-d';
-    $start_date = DateTime::createFromFormat($format, '2019-03-17');
-    $end_date = DateTime::createFromFormat($format, '2019-03-18');
-    $category = 'Economy';
+    // $format = 'Y-m-d';
+    // $start_date = DateTime::createFromFormat($format, '2019-03-17');
+    // $end_date = DateTime::createFromFormat($format, '2019-03-18');
+    // $category = 'Economy';
     // $category = 'Deluxe';
 
     // dd($request->start_date);
     // dd($request);
+    // dd($request->all());
 
     // FOR TESTING!!!!!
     // $input = [
@@ -50,7 +51,15 @@ class RoomsController extends Controller
       'category' => $request->room_category
     ];
 
+    // $input = [
+    //   'start_date' => $request->input('start_date'),
+    //   'end_date' => $request->input('end_date'),
+    //   'category' => $request->input('room_category')
+    // ];
+
     // dd($input);
+
+    \Log::info($input);
 
     // $qry_reserved_rooms1 = Reservation::all()
     //     ->roomsAlreadyReserved($input['start_date'], $input['end_date']);
