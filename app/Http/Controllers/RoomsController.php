@@ -28,10 +28,10 @@ class RoomsController extends Controller
   public function get_available_rooms(Request $request)
   {
     // Define constants for testing
-    // $format = 'Y-m-d';
-    // $start_date = DateTime::createFromFormat($format, '2019-03-17');
-    // $end_date = DateTime::createFromFormat($format, '2019-03-18');
-    // $category = 'Economy';
+    $format = 'Y-m-d';
+    $start_date = DateTime::createFromFormat($format, '2019-03-17');
+    $end_date = DateTime::createFromFormat($format, '2019-03-18');
+    $category = 'Economy';
     // $category = 'Deluxe';
 
     // dd($request->start_date);
@@ -81,11 +81,15 @@ class RoomsController extends Controller
 
       // dd($qry->get()->pluck('roomsRoom'));
       //
-      $available_rooms = $qry->get()->pluck('roomsRoom');
+      // $available_rooms = $qry->get();
 
-      \Log::info($available_rooms);
+      dd($qry->get());
 
-      return ['rooms' => $available_rooms];
+      // $available_rooms = $qry->get()->pluck('roomsRoom');
+
+      // \Log::info($available_rooms);
+
+      return $available_rooms;
       // return $available_rooms->toArray();
       // return response()->json($available_rooms);
   }
