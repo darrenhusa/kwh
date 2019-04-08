@@ -1816,15 +1816,21 @@ __webpack_require__.r(__webpack_exports__);
       //TODO - Fix errors when use the url below
       var url = '/rooms/get_available'; // TEST - Loads static rooms into combo box
       //var url = '/available_rooms';
+      //var data = {
+      //  'start_date': this.start_date,
+      //  'end_date': this.end_date,
+      //  'room_category': this.room_category,
+      //};
 
-      var data = {
-        'start_date': this.start_date,
-        'end_date': this.end_date,
-        'room_category': this.room_category
-      };
       console.log('data = ' + data); //alert(data);
 
-      axios.get(url, data).then(function (response) {
+      axios.get(url, {
+        params: {
+          start_date: this.start_date,
+          end_date: this.end_date,
+          room_category: this.room_category
+        }
+      }).then(function (response) {
         return _this.rooms = response.data;
       }).then(function (response) {
         console.log(response);

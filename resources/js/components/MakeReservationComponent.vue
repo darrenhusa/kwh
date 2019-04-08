@@ -62,17 +62,22 @@
           // TEST - Loads static rooms into combo box
           //var url = '/available_rooms';
 
-          var data = {
-            'start_date': this.start_date,
-            'end_date': this.end_date,
-            'room_category': this.room_category,
-          };
+          //var data = {
+          //  'start_date': this.start_date,
+          //  'end_date': this.end_date,
+          //  'room_category': this.room_category,
+          //};
 
           console.log('data = ' + data);
           //alert(data);
 
-          axios.get(url, data)
-              .then(response => this.rooms = response.data)
+          axios.get(url, {
+              params: {
+                start_date: this.start_date,
+                end_date: this.end_date,
+                room_category: this.room_category,
+                }
+              }).then(response => this.rooms = response.data)
               .then(function (response) {
                  console.log(response);
                })
