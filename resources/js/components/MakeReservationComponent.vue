@@ -25,7 +25,7 @@
         <option v-for="room in rooms" :value="room">{{ room }}</option>
       </select>
 
-      <p name="availability" v-model="availability">{{ availability }}</p>
+      <p v-if="not_available">Room {{ selected_room }} needs cleaning or is unavailable.</p>
 
       <br />
 
@@ -48,7 +48,8 @@
             rooms: [],
 
             room_rate: '',
-            availability: '',
+            not_available: false,
+            //message: '',
 
           } //end return
 
@@ -77,7 +78,7 @@
             'room_category': this.room_category,
             'room': this.selected_room,
             'room_rate': this.room_rate,
-            'availability': this.availability,
+            'is_available': this.is_available,
           };
 
           console.log('data = ' + data);
@@ -130,7 +131,7 @@
 
           if(room_not_empty)
           {
-              console.log('Get room availability');
+              //console.log('Get room availability');
 
               this.getRoomAvailability();
           }
@@ -162,8 +163,8 @@
                 params: {
                   room_no: this.selected_room,
                   }
-                }).then(response => console.log(response.data));
-                //}).then(response => this.availability = response.data);
+            //}).then(response => console.log(response.data));
+            }).then(response => this.not_available = response.data);
 
           }, //end getRoomAvailability
 

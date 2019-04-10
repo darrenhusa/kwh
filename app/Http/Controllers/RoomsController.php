@@ -123,13 +123,21 @@ class RoomsController extends Controller
     $needs_cleaning = Room::where('room_no', $room_no)
         ->value('needs_cleaning');
 
+    $not_available = $unavailable || $needs_cleaning;
+    $is_available = ! $not_available;
+
     $data = [
       'unavailable' => $unavailable,
       'needs_cleaning' => $needs_cleaning,
+      'not_available' => $not_available,
+      'is_available' => $is_available,
     ];
 
-    return $data;
-    
+    // return $data;
+    // return $is_available;
+    // return json_encode($data);
+    return json_encode($not_available);
+
   }
 
 

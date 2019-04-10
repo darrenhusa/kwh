@@ -1807,7 +1807,8 @@ __webpack_require__.r(__webpack_exports__);
       selected_room: '',
       rooms: [],
       room_rate: '',
-      availability: '' //end return
+      not_available: false //message: '',
+      //end return
 
     };
   },
@@ -1831,7 +1832,7 @@ __webpack_require__.r(__webpack_exports__);
         'room_category': this.room_category,
         'room': this.selected_room,
         'room_rate': this.room_rate,
-        'availability': this.availability
+        'is_available': this.is_available
       };
       console.log('data = ' + data); //alert(data);
 
@@ -1872,7 +1873,7 @@ __webpack_require__.r(__webpack_exports__);
       }
 
       if (room_not_empty) {
-        console.log('Get room availability');
+        //console.log('Get room availability');
         this.getRoomAvailability();
       }
     },
@@ -1893,15 +1894,18 @@ __webpack_require__.r(__webpack_exports__);
     },
     //end getRoomRate
     getRoomAvailability: function getRoomAvailability() {
+      var _this3 = this;
+
       console.log('inside getRoomAvailability');
       var url = '/get_room_availability';
       axios.get(url, {
         params: {
-          room_no: this.selected_room
+          room_no: this.selected_room //}).then(response => console.log(response.data));
+
         }
       }).then(function (response) {
-        return console.log(response.data);
-      }); //}).then(response => this.availability = response.data);
+        return _this3.not_available = response.data;
+      });
     } //end getRoomAvailability
     //        loadRoomCategories: function() {
     //          console.log('inside loadRoomCategories');
@@ -37146,20 +37150,15 @@ var render = function() {
       0
     ),
     _vm._v(" "),
-    _c(
-      "p",
-      {
-        attrs: { name: "availability" },
-        model: {
-          value: _vm.availability,
-          callback: function($$v) {
-            _vm.availability = $$v
-          },
-          expression: "availability"
-        }
-      },
-      [_vm._v(_vm._s(_vm.availability))]
-    ),
+    _vm.not_available
+      ? _c("p", [
+          _vm._v(
+            "Room " +
+              _vm._s(_vm.selected_room) +
+              " needs cleaning or is unavailable."
+          )
+        ])
+      : _vm._e(),
     _vm._v(" "),
     _c("br")
   ])
