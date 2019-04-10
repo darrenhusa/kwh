@@ -27,6 +27,8 @@ Route::get('/rooms/test','RoomsController@get_available_rooms');
 // Route::post('/rooms/test','RoomsController@get_available_rooms');
 
 Route::get('/get_room_rate','RoomCategoriesController@get_rate');
+Route::get('/get_rate','RoomCategoriesController@get_rate');
+
 Route::get('/get_room_availability','RoomsController@get_availability');
 
 // Route::get('/load_categories','RoomCategoriesController@get_room_categories');

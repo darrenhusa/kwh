@@ -16,7 +16,7 @@
         <option value="Suite">Suite</option>
       </select>
 
-      <label name="room_rate" v-model="room_rate">{{ room_rate }}</label>
+      <p name="room_rate" v-model="room_rate">{{ room_rate }}</p>
 
       <br />
 
@@ -25,7 +25,7 @@
         <option v-for="room in rooms" :value="room">{{ room }}</option>
       </select>
 
-      <label name="availability" v-model="availability">{{ availability }}</label>
+      <p name="availability" v-model="availability">{{ availability }}</p>
 
       <br />
 
@@ -75,6 +75,9 @@
             'start_date': this.start_date,
             'end_date': this.end_date,
             'room_category': this.room_category,
+            'room': this.selected_room,
+            'room_rate': this.room_rate,
+            'availability': this.availability,
           };
 
           console.log('data = ' + data);
@@ -129,19 +132,23 @@
           {
               console.log('Get room availability');
 
-              //this.getRoomAvailability();
+              this.getRoomAvailability();
           }
 
         }, // end testControls
 
           getRoomRate: function() {
 
-            console.log('inside getRoomRate');
+            //console.log('inside getRoomRate');
 
             var url = '/get_room_rate';
 
-            axios.get(url)
-                .then(response => this.room_rate = response.data);
+            axios.get(url, {
+                params: {
+                  room_category: this.room_category,
+                }
+            //}).then(response => console.log(response.data));
+            }).then(response => this.room_rate = response.data);
 
           }, //end getRoomRate
 
@@ -151,8 +158,12 @@
 
             var url = '/get_room_availability';
 
-            axios.get(url)
-                .then(response => this.availability = response.data);
+            axios.get(url, {
+                params: {
+                  room_no: this.selected_room,
+                  }
+                }).then(response => console.log(response.data));
+                //}).then(response => this.availability = response.data);
 
           }, //end getRoomAvailability
 
@@ -176,7 +187,16 @@
         // TODO - Add code to load room category combo box
         //this.loadRoomCategories;
 
-    } //end mounted
+    }, //end mounted
+
+    updated() {
+
+        console.log('Component updated.');
+
+        this.testControls;
+
+    }, //end mounted
+
 
 } //end export default
 

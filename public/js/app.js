@@ -1792,6 +1792,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['customer'],
   data: function data() {
@@ -1800,7 +1805,9 @@ __webpack_require__.r(__webpack_exports__);
       end_date: '',
       room_category: '',
       selected_room: '',
-      rooms: [] //end return
+      rooms: [],
+      room_rate: '',
+      availability: '' //end return
 
     };
   },
@@ -1821,7 +1828,10 @@ __webpack_require__.r(__webpack_exports__);
       var data = {
         'start_date': this.start_date,
         'end_date': this.end_date,
-        'room_category': this.room_category
+        'room_category': this.room_category,
+        'room': this.selected_room,
+        'room_rate': this.room_rate,
+        'availability': this.availability
       };
       console.log('data = ' + data); //alert(data);
 
@@ -1846,15 +1856,53 @@ __webpack_require__.r(__webpack_exports__);
       // verify controls are not empty
       var start_date_not_empty = !(this.start_date === '');
       var end_date_not_empty = !(this.end_date === '');
-      var category_not_empty = !(this.room_category === ''); //console.log('start_date_not_empty = ' + start_date_not_empty);
+      var category_not_empty = !(this.room_category === '');
+      var room_not_empty = !(this.selected_room === ''); //console.log('start_date_not_empty = ' + start_date_not_empty);
       //console.log('end_date_not_empty = ' + end_date_not_empty);
       //console.log('category_not_empty = ' + category_not_empty);
+
+      if (category_not_empty) {
+        console.log('Get room rate');
+        this.getRoomRate();
+      }
 
       if (start_date_not_empty && end_date_not_empty && category_not_empty) {
         //console.log('All the controls are populated!');
         this.loadRooms();
       }
-    } // end testControls
+
+      if (room_not_empty) {
+        console.log('Get room availability');
+        this.getRoomAvailability();
+      }
+    },
+    // end testControls
+    getRoomRate: function getRoomRate() {
+      var _this2 = this;
+
+      //console.log('inside getRoomRate');
+      var url = '/get_room_rate';
+      axios.get(url, {
+        params: {
+          room_category: this.room_category //}).then(response => console.log(response.data));
+
+        }
+      }).then(function (response) {
+        return _this2.room_rate = response.data;
+      });
+    },
+    //end getRoomRate
+    getRoomAvailability: function getRoomAvailability() {
+      console.log('inside getRoomAvailability');
+      var url = '/get_room_availability';
+      axios.get(url, {
+        params: {
+          room_no: this.selected_room
+        }
+      }).then(function (response) {
+        return console.log(response.data);
+      }); //}).then(response => this.availability = response.data);
+    } //end getRoomAvailability
     //        loadRoomCategories: function() {
     //          console.log('inside loadRoomCategories');
     //        var url = '/load_categories';
@@ -1867,9 +1915,13 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     console.log('Make Reservation Component mounted.'); // TODO - Add code to load room category combo box
     //this.loadRoomCategories;
-  } //end mounted
-
-}); //end export default
+  },
+  //end mounted
+  updated: function updated() {
+    console.log('Component updated.');
+    this.testControls;
+  }
+});
 
 /***/ }),
 
@@ -37036,6 +37088,21 @@ var render = function() {
       ]
     ),
     _vm._v(" "),
+    _c(
+      "p",
+      {
+        attrs: { name: "room_rate" },
+        model: {
+          value: _vm.room_rate,
+          callback: function($$v) {
+            _vm.room_rate = $$v
+          },
+          expression: "room_rate"
+        }
+      },
+      [_vm._v(_vm._s(_vm.room_rate))]
+    ),
+    _vm._v(" "),
     _c("br"),
     _vm._v(" "),
     _c("label", [_vm._v("Select Room")]),
@@ -37077,6 +37144,21 @@ var render = function() {
         ])
       }),
       0
+    ),
+    _vm._v(" "),
+    _c(
+      "p",
+      {
+        attrs: { name: "availability" },
+        model: {
+          value: _vm.availability,
+          callback: function($$v) {
+            _vm.availability = $$v
+          },
+          expression: "availability"
+        }
+      },
+      [_vm._v(_vm._s(_vm.availability))]
     ),
     _vm._v(" "),
     _c("br")
