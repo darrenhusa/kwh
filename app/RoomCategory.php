@@ -12,4 +12,9 @@ class RoomCategory extends Model
   public $incrementing = false;
   public $timestamps = false;
 
+  public function scopeInCategory($query, $category)
+  {
+      return $query->where('category', $category);
+  }
+
 }

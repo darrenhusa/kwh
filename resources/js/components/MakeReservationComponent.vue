@@ -15,12 +15,17 @@
         <option value="Deluxe">Deluxe</option>
         <option value="Suite">Suite</option>
       </select>
+
+      <label name="room_rate" v-model="room_rate">{{ room_rate }}</label>
+
       <br />
 
       <label>Select Room</label>
       <select name="selected_room" v-model="selected_room" @change="testControls">
         <option v-for="room in rooms" :value="room">{{ room }}</option>
       </select>
+
+      <label name="availability" v-model="availability">{{ availability }}</label>
 
       <br />
 
@@ -40,7 +45,10 @@
             room_category: '',
 
             selected_room: '',
-            rooms: []
+            rooms: [],
+
+            room_rate: '',
+            availability: '',
 
           } //end return
 
@@ -97,20 +105,56 @@
           var start_date_not_empty = ! (this.start_date === '');
           var end_date_not_empty = ! (this.end_date === '');
           var category_not_empty = ! (this.room_category === '');
+          var room_not_empty = ! (this.selected_room === '');
 
           //console.log('start_date_not_empty = ' + start_date_not_empty);
           //console.log('end_date_not_empty = ' + end_date_not_empty);
           //console.log('category_not_empty = ' + category_not_empty);
+
+          if(category_not_empty)
+          {
+              console.log('Get room rate');
+
+              this.getRoomRate();
+          }
 
           if(start_date_not_empty && end_date_not_empty && category_not_empty)
           {
               //console.log('All the controls are populated!');
 
               this.loadRooms();
+          }
 
+          if(room_not_empty)
+          {
+              console.log('Get room availability');
+
+              //this.getRoomAvailability();
           }
 
         }, // end testControls
+
+          getRoomRate: function() {
+
+            console.log('inside getRoomRate');
+
+            var url = '/get_room_rate';
+
+            axios.get(url)
+                .then(response => this.room_rate = response.data);
+
+          }, //end getRoomRate
+
+          getRoomAvailability: function() {
+
+            console.log('inside getRoomAvailability');
+
+            var url = '/get_room_availability';
+
+            axios.get(url)
+                .then(response => this.availability = response.data);
+
+          }, //end getRoomAvailability
 
 //        loadRoomCategories: function() {
 
