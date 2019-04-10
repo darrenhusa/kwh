@@ -112,4 +112,25 @@ class RoomsController extends Controller
     return [102, 103, 104, 105, 200, 201, 300];
   }
 
+  public function get_availability(Request $request)
+  {
+    $room_no = $request->room_no;
+
+    // create query to check if room is available
+    $unavailable = Room::where('room_no', $room_no)
+      ->value('unavailable');
+
+    $needs_cleaning = Room::where('room_no', $room_no)
+        ->value('needs_cleaning');
+
+    $data = [
+      'unavailable' => $unavailable,
+      'needs_cleaning' => $needs_cleaning,
+    ];
+
+    return $data;
+    
+  }
+
+
 }
