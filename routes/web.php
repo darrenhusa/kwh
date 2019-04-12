@@ -31,6 +31,9 @@ Route::get('/get_rate','RoomCategoriesController@get_rate');
 
 Route::get('/get_room_availability','RoomsController@get_availability');
 
+Route::get('/get_bill', 'CustomerReservationsController@calculate_bill');
+
+
 // Route::get('/load_categories','RoomCategoriesController@get_room_categories');
 
 //test vue

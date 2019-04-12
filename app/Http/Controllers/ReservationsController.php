@@ -32,6 +32,6 @@ class ReservationsController extends Controller
   //
   //     // return view('reservations.index', compact('reservations'));
   // }
-
-
+  //
+  
 }

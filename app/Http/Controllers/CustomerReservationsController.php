@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Customer;
 use App\Reservation;
 use App\RoomCategory;
+use App\Room;
 
 class CustomerReservationsController extends Controller
 {
@@ -82,6 +83,37 @@ class CustomerReservationsController extends Controller
       // dd($reservation);
 
       return redirect('/reservations');
+  }
+
+  public function calculate_bill()
+  {
+    // use constants as a test
+    $start_date = Carbon::create('2019', '04', '08');
+    $end_date = Carbon::create('2019', '04', '14');
+    // $end_date = Carbon::create('2019', '04', '12');
+    // $room_no = 200;
+    $room_no = 100;
+
+    // create a query to lookup the room type
+    // $category = Reservation::all()->find()->room()->category->get();
+    $category = Room::where('room_no', $room_no)->value('category');
+    $rate = RoomCategory::where('category', $category)->value('rate');
+
+    $days = $end_date->diffInDays($start_date);
+
+    $room_charges = $days * $rate;
+
+    $data = [
+      'start_date' => $start_date,
+      'end_date' => $end_date,
+      'days' => $days,
+      'category' => $category,
+      'rate' => $rate,
+      'room_charges' => $room_charges,
+    ];
+
+    dd($data);
+
   }
 
 
