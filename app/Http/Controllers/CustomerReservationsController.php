@@ -104,8 +104,8 @@ class CustomerReservationsController extends Controller
     $room_charges = $days * $rate;
 
     $data = [
-      'start_date' => $start_date,
-      'end_date' => $end_date,
+      'start_date' => $start_date->toDateString(),
+      'end_date' => $end_date->toDateString(),
       'days' => $days,
       'category' => $category,
       'rate' => $rate,
