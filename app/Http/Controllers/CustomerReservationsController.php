@@ -193,7 +193,8 @@ class CustomerReservationsController extends Controller
     // calculate the room charges for the current reservation
     $room_charges = $days * $rate;
 
-    // $current->amount = $room_charges;
+    $current->amount = $room_charges;
+    $current->save();
 
     // Calculate tax and total charges (optional)
     $taxes = .07 * $room_charges;

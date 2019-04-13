@@ -51,4 +51,9 @@ class Reservation extends Model
 
     }
 
+    public function getAmountAttribute($value)
+    {
+        return number_format($value, 2);
+    }
+
 }
