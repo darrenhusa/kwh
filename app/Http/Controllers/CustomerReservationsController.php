@@ -85,7 +85,7 @@ class CustomerReservationsController extends Controller
       return redirect('/reservations');
   }
 
-  public function calculate_bill()
+  public function calculate_bill_test()
   {
     // use constants as a test
     $start_date = Carbon::create('2019', '04', '08');
@@ -116,5 +116,87 @@ class CustomerReservationsController extends Controller
 
   }
 
+  public function check_out($id)
+  {
+    $customer_id = $id;
+
+    $today = Carbon::today();
+
+    // dd($customer_id);
+    // dd($today);
+
+    // write a query to return all reservations where
+    // start_date <= today <= end_date
+
+    $current = Reservation::where('customer_no', $customer_id)
+      ->where('start_date', '<=', $today)
+      ->where('end_date', '>=', $today)
+      ->first();
+
+      // dd($current);
+    $start_date = $current->start_date;
+    $end_date = $current->end_date;
+    $room_no = $current->room_no;
+
+    // dd($start_date, $end_date, $room_no);
+
+    $bill = $this->calculate_bill($start_date, $end_date, $room_no);
+
+    dd($bill);
+
+    return $bill;
+
+  }
+
+  public function calculate_bill($start_date, $end_date, $room_no)
+  {
+    // use constants as a test
+    // $start_date = Carbon::create('2019', '04', '08');
+    // $end_date = Carbon::create('2019', '04', '14');
+    // $end_date = Carbon::create('2019', '04', '12');
+    // $room_no = 200;
+    // $room_no = 100;
+
+    // convert string dates to Carbon instances
+    $sd = Carbon::createFromFormat('m/d/Y', $start_date);
+    $ed = Carbon::createFromFormat('m/d/Y', $end_date);
+
+    // dd($sd, $ed);
+
+    // create a query to lookup the room type
+    // $category = Reservation::all()->find()->room()->category->get();
+    $category = Room::where('room_no', $room_no)->value('category');
+    $rate = RoomCategory::where('category', $category)->value('rate');
+
+    $days = $ed->diffInDays($sd);
+
+    $room_charges = $days * $rate;
+
+    $data = [
+      'start_date' => $sd->toDateString(),
+      'end_date' => $ed->toDateString(),
+      'days' => $days,
+      'category' => $category,
+      'rate' => $rate,
+      'room_charges' => $room_charges,
+    ];
+
+    dd($data);
+
+    // dd($room_charges);
+
+    // $data = [
+    //   'start_date' => $start_date->toDateString(),
+    //   'end_date' => $end_date->toDateString(),
+    //   'days' => $days,
+    //   'category' => $category,
+    //   'rate' => $rate,
+    //   'room_charges' => $room_charges,
+    // ];
+
+    // dd($data);
+    return $room_charges;
+
+  }
 
 }

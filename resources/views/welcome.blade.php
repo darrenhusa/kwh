@@ -8,14 +8,15 @@
 
     </head>
     <body>
-      <h1>KWH</h1>
+      <h1>King William Hotel</h1>
         <div class="links">
           <ul>
             <li><a href="http://localhost:8000/customers">Customers Index</a></li>
             <li><a href="http://localhost:8000/reservations">Reservations Index</a></li>
             <li><a href="http://localhost:8000/rooms">Rooms Index</a></li>
-            <li><a href="http://localhost:8000/rooms/test">Rooms Get Available TEST</a></li>
+            <li><a href="http://localhost:8000/customer/show_current">TEST SHOW CURRENT RESERVATIONS</a></li>
             <li><a href="http://localhost:8000/available_rooms">TEST ROOMS JSON</a></li>
+            <li><a href="http://localhost:8000/get_bill">TEST GET BILL</a></li>
           </ul>
         </div>
     </body>

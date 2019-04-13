@@ -33,6 +33,8 @@ Route::get('/get_room_availability','RoomsController@get_availability');
 
 Route::get('/get_bill', 'CustomerReservationsController@calculate_bill');
 
+Route::get('/customers/{customer}/check_out', 'CustomerReservationsController@check_out');
+
 
 // Route::get('/load_categories','RoomCategoriesController@get_room_categories');
 

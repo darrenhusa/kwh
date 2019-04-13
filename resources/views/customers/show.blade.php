@@ -12,10 +12,10 @@
   <form action="/customers/{{ $customer->id }}/reservations/create" class="" method="get">
     <input type="submit" name="" value="Make Reservation">
   </form>
-  <form class="" action="" method="get">
+  <form class="" action="/customers/{{ $customer->id }}/check_in" method="get">
     <input type="submit" name="" value="Check In">
   </form>
-  <form class="" action="" method="get">
+  <form action="/customers/{{ $customer->id }}/check_out" class="" method="get">
     <input type="submit" name="" value="Check Out">
   </form>
 
