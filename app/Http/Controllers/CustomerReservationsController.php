@@ -133,23 +133,30 @@ class CustomerReservationsController extends Controller
       ->where('end_date', '>=', $today)
       ->first();
 
-      // dd($current);
-    $start_date = $current->start_date;
-    $end_date = $current->end_date;
-    $room_no = $current->room_no;
+    // dd($current);
+    // $start_date = $current->start_date;
+    // $end_date = $current->end_date;
+    // $room_no = $current->room_no;
 
+    // $customer = $current->customer;
     // dd($start_date, $end_date, $room_no);
 
-    $bill = $this->calculate_bill($start_date, $end_date, $room_no);
+    $bill = $this->calculate_bill($current);
 
-    dd($bill);
+    // dd($bill);
+    $data = [
+      'current_reservation' => $current,
+      'bill' => $bill
+    ];
 
-    return $bill;
+    dd($data);
 
+    return view('check_out', compact(data));
   }
 
-  public function calculate_bill($start_date, $end_date, $room_no)
+  public function calculate_bill(Reservation $current)
   {
+    // $start_date, $end_date, $room_no
     // use constants as a test
     // $start_date = Carbon::create('2019', '04', '08');
     // $end_date = Carbon::create('2019', '04', '14');
@@ -158,30 +165,53 @@ class CustomerReservationsController extends Controller
     // $room_no = 100;
 
     // convert string dates to Carbon instances
-    $sd = Carbon::createFromFormat('m/d/Y', $start_date);
-    $ed = Carbon::createFromFormat('m/d/Y', $end_date);
+    $start_date = Carbon::createFromFormat('m/d/Y', $current->start_date);
+    $end_date = Carbon::createFromFormat('m/d/Y', $current->end_date);
 
     // dd($sd, $ed);
 
     // create a query to lookup the room type
     // $category = Reservation::all()->find()->room()->category->get();
-    $category = Room::where('room_no', $room_no)->value('category');
+
+    // Lookup Room category from the Room Number
+    $category = Room::where('room_no', $current->room_no)->value('category');
+
+    //Lookup Room Rate from the Room Category
     $rate = RoomCategory::where('category', $category)->value('rate');
 
-    $days = $ed->diffInDays($sd);
+    // calculate the number of days for the current reservation
+    $days = $end_date->diffInDays($start_date);
 
+    // calculate the room charges for the current reservation
     $room_charges = $days * $rate;
 
+    // $current->amount = $room_charges;
+
+    // Calculate tax and total charges (optional)
+    $taxes = .07 * $room_charges;
+    $total_charges = $room_charges + $taxes;
+
     $data = [
-      'start_date' => $sd->toDateString(),
-      'end_date' => $ed->toDateString(),
-      'days' => $days,
+      'start_date' => $start_date,
+      'end_date' => $end_date,
       'category' => $category,
+      'days' => $days,
       'rate' => $rate,
       'room_charges' => $room_charges,
+      'taxes' => $taxes,
+      'total_charges' => $total_charges,
     ];
 
-    dd($data);
+    // $data = [
+    //   'start_date' => $sd->toDateString(),
+    //   'end_date' => $ed->toDateString(),
+    //   'days' => $days,
+    //   'category' => $category,
+    //   'rate' => $rate,
+    //   'room_charges' => $room_charges,
+    // ];
+
+    // dd($data);
 
     // dd($room_charges);
 
@@ -195,7 +225,8 @@ class CustomerReservationsController extends Controller
     // ];
 
     // dd($data);
-    return $room_charges;
+    // return $room_charges;
+    return $data;
 
   }
 
