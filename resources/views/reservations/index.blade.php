@@ -4,6 +4,12 @@
 
   <h1>Reservations-Index</h1>
 
+  @if (session('message'))
+    <div class="info">
+      <p>{{ session('message') }}</p>
+    </div>
+  @endif
+
   <table>
     <tr>
       <td>Reservation No</td>

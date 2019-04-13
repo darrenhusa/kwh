@@ -75,11 +75,12 @@ class CustomerReservationsController extends Controller
       $reservation->save();
 
       // \Log::info('request');
-      \Log::info($request);
+      // \Log::info($request);
 
       // \Log::info('reservation');
-      \Log::info($reservation);
+      // \Log::info($reservation);
 
+      session()->flash('message', 'Reservation saved.');
       // dd($reservation);
 
       return redirect('/reservations');
