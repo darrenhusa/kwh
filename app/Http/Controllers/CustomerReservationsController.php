@@ -118,17 +118,20 @@ class CustomerReservationsController extends Controller
 
   public function check_out($id)
   {
-    $customer_id = $id;
+    // $customer_id = $id;
+
+    $customer = Customer::findOrFail($id);
 
     $today = Carbon::today();
 
+    // dd($customer);
     // dd($customer_id);
     // dd($today);
 
     // write a query to return all reservations where
     // start_date <= today <= end_date
 
-    $current = Reservation::where('customer_no', $customer_id)
+    $current = Reservation::where('customer_no', $customer->id)
       ->where('start_date', '<=', $today)
       ->where('end_date', '>=', $today)
       ->first();
@@ -144,14 +147,19 @@ class CustomerReservationsController extends Controller
     $bill = $this->calculate_bill($current);
 
     // dd($bill);
-    $data = [
+    // $data = [
+    //   'current_reservation' => $current,
+    //   'bill' => $bill
+    // ];
+
+    // dd($data);
+
+    return view('check_out', [
+      'customer' => $customer,
       'current_reservation' => $current,
       'bill' => $bill
-    ];
-
-    dd($data);
-
-    return view('check_out', compact(data));
+    ]);
+    // return view('check_out', compact('data'));
   }
 
   public function calculate_bill(Reservation $current)
